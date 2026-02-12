@@ -1,1 +1,329 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    /* Primary purple palette */
+    --color-mystic-50: #faf5ff;
+    --color-mystic-100: #f3e8ff;
+    --color-mystic-200: #e9d5ff;
+    --color-mystic-300: #d8b4fe;
+    --color-mystic-400: #c084fc;
+    --color-mystic-500: #a855f7;
+    --color-mystic-600: #9333ea;
+    --color-mystic-700: #7e22ce;
+    --color-mystic-800: #6b21a8;
+    --color-mystic-900: #581c87;
+    --color-mystic-950: #3b0764;
+
+    /* Amber/orange accent */
+    --color-lantern-50: #fffbeb;
+    --color-lantern-100: #fef3c7;
+    --color-lantern-200: #fde68a;
+    --color-lantern-300: #fcd34d;
+    --color-lantern-400: #fbbf24;
+    --color-lantern-500: #f59e0b;
+    --color-lantern-600: #d97706;
+    --color-lantern-700: #b45309;
+    --color-lantern-800: #92400e;
+    --color-lantern-900: #78350f;
+    --color-lantern-950: #451a03;
+
+    /* Teal/ocean accent */
+    --color-bermuda-50: #f0fdfa;
+    --color-bermuda-100: #ccfbf1;
+    --color-bermuda-200: #99f6e4;
+    --color-bermuda-300: #5eead4;
+    --color-bermuda-400: #2dd4bf;
+    --color-bermuda-500: #14b8a6;
+    --color-bermuda-600: #0d9488;
+    --color-bermuda-700: #0f766e;
+    --color-bermuda-800: #115e59;
+    --color-bermuda-900: #134e4a;
+    --color-bermuda-950: #042f2e;
+
+    /* Typography */
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Fraunces", Georgia, serif;
+    --font-mono: ui-monospace, "Cascadia Code", monospace;
+}
+
+/* Base styles */
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-mystic-50 text-mystic-950 antialiased;
+        font-family: var(--font-sans);
+    }
+
+    /* Dark mode body */
+    .dark body {
+        @apply bg-mystic-950 text-mystic-100;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-display);
+        @apply text-mystic-900 font-semibold tracking-tight;
+    }
+
+    .dark h1,
+    .dark h2,
+    .dark h3,
+    .dark h4,
+    .dark h5,
+    .dark h6 {
+        @apply text-mystic-100;
+    }
+
+    h1 {
+        @apply text-4xl md:text-5xl;
+    }
+
+    h2 {
+        @apply text-3xl md:text-4xl;
+    }
+
+    h3 {
+        @apply text-2xl md:text-3xl;
+    }
+
+    h4 {
+        @apply text-xl md:text-2xl;
+    }
+
+    a {
+        @apply text-mystic-600 hover:text-mystic-800 transition-colors;
+    }
+
+    .dark a {
+        @apply text-mystic-400 hover:text-mystic-300;
+    }
+
+    p {
+        @apply leading-relaxed;
+    }
+}
+
+/* Component utilities */
+@layer components {
+    .prose {
+        @apply max-w-none text-mystic-800;
+    }
+
+    .dark .prose {
+        @apply text-mystic-200;
+    }
+
+    .prose h2 {
+        @apply mt-12 mb-4 text-mystic-900;
+    }
+
+    .dark .prose h2 {
+        @apply text-mystic-100;
+    }
+
+    .prose h3 {
+        @apply mt-8 mb-3 text-mystic-900;
+    }
+
+    .dark .prose h3 {
+        @apply text-mystic-100;
+    }
+
+    .prose p {
+        @apply mb-4;
+    }
+
+    .prose ul {
+        @apply list-disc pl-6 mb-4 space-y-2;
+    }
+
+    .prose ol {
+        @apply list-decimal pl-6 mb-4 space-y-2;
+    }
+
+    .prose li {
+        @apply leading-relaxed;
+    }
+
+    .prose strong {
+        @apply text-mystic-900;
+    }
+
+    .dark .prose strong {
+        @apply text-mystic-100;
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-200;
+    }
+
+    .btn-primary {
+        @apply bg-mystic-600 text-white hover:bg-mystic-700 hover:shadow-lg hover:shadow-mystic-500/25;
+    }
+
+    .dark .btn-primary {
+        @apply bg-mystic-500 hover:bg-mystic-400 hover:shadow-mystic-500/30;
+    }
+
+    .btn-secondary {
+        @apply bg-lantern-500 text-white hover:bg-lantern-600 hover:shadow-lg hover:shadow-lantern-500/25;
+    }
+
+    .dark .btn-secondary {
+        @apply bg-lantern-500 hover:bg-lantern-400;
+    }
+
+    .btn-outline {
+        @apply border-2 border-mystic-600 text-mystic-600 hover:bg-mystic-600 hover:text-white;
+    }
+
+    .dark .btn-outline {
+        @apply border-mystic-400 text-mystic-400 hover:bg-mystic-400 hover:text-mystic-950;
+    }
+
+    .card {
+        @apply bg-white rounded-2xl shadow-sm border border-mystic-100 overflow-hidden;
+    }
+
+    .dark .card {
+        @apply bg-mystic-950 border-mystic-800;
+    }
+
+    .card-hover {
+        @apply hover:shadow-lg hover:shadow-mystic-500/10 hover:border-mystic-200 transition-all duration-300;
+    }
+
+    .dark .card-hover {
+        @apply hover:shadow-mystic-500/20 hover:border-mystic-700;
+    }
+
+    /* Icon styling helpers */
+    .icon {
+        @apply inline-block;
+    }
+
+    .icon-xs {
+        @apply text-xs;
+    }
+
+    .icon-sm {
+        @apply text-sm;
+    }
+
+    .icon-md {
+        @apply text-base;
+    }
+
+    .icon-lg {
+        @apply text-lg;
+    }
+
+    .icon-xl {
+        @apply text-xl;
+    }
+
+    .icon-2xl {
+        @apply text-2xl;
+    }
+
+    .icon-3xl {
+        @apply text-3xl;
+    }
+
+    .icon-4xl {
+        @apply text-4xl;
+    }
+}
+
+/* Custom animations */
+@layer utilities {
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-twinkle {
+        animation: twinkle 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes twinkle {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    /* Gradient text */
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-linear-to-r from-mystic-600 via-bermuda-500 to-lantern-500;
+    }
+
+    .dark .text-gradient {
+        @apply from-mystic-400 via-bermuda-400 to-lantern-400;
+    }
+
+    /* Decorative background patterns */
+    .bg-stars {
+        background-image:
+            radial-gradient(
+                circle at 25% 25%,
+                rgba(168, 85, 247, 0.1) 1px,
+                transparent 1px
+            ),
+            radial-gradient(
+                circle at 75% 75%,
+                rgba(20, 184, 166, 0.1) 1px,
+                transparent 1px
+            );
+        background-size: 50px 50px;
+    }
+
+    .dark .bg-stars {
+        background-image:
+            radial-gradient(
+                circle at 25% 25%,
+                rgba(168, 85, 247, 0.2) 1px,
+                transparent 1px
+            ),
+            radial-gradient(
+                circle at 75% 75%,
+                rgba(20, 184, 166, 0.2) 1px,
+                transparent 1px
+            );
+    }
+
+    /* Line clamp utilities */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}

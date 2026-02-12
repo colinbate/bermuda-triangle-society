@@ -1,11 +1,281 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ThemeCard from '../components/ThemeCard.astro';
+import MeetingCard from '../components/MeetingCard.astro';
+import StarterList from '../components/StarterList.astro';
+import { getCollection } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Get themes and meetings
+const themes = await getCollection('themes');
+const meetings = await getCollection('meetings');
+
+// Find current theme
+const currentTheme = themes.find(t => t.data.status === 'current');
+
+// Get upcoming meetings (sorted by date)
+const now = new Date();
+const upcomingMeetings = meetings
+  .filter(m => new Date(m.data.date) >= now)
+  .sort((a, b) => new Date(a.data.date).getTime() - new Date(b.data.date).getTime());
+
+const nextMeeting = upcomingMeetings[0];
+
+// Get past themes for the "explore more" section
+const pastThemes = themes
+  .filter(t => t.data.status === 'past')
+  .sort((a, b) => {
+    if (!a.data.meetingDate || !b.data.meetingDate) return 0;
+    return new Date(b.data.meetingDate).getTime() - new Date(a.data.meetingDate).getTime();
+  })
+  .slice(0, 3);
+
+// Format date helper
+function formatDate(dateStr: string): string {
+  return new Date(dateStr).toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
+}
 ---
 
 <Layout>
-	<Welcome />
+  <!-- Hero Section -->
+  <Hero>
+    <Fragment slot="primary-cta">
+      {currentTheme ? (
+        <a href={`/themes/${currentTheme.id}`} class="btn btn-primary">
+          <span>See Current Theme</span>
+          <i class="fa-solid fa-sharp fa-arrow-right ml-2"></i>
+        </a>
+      ) : (
+        <a href="/themes" class="btn btn-primary">
+          <span>Explore Themes</span>
+          <i class="fa-solid fa-sharp fa-arrow-right ml-2"></i>
+        </a>
+      )}
+    </Fragment>
+
+    <Fragment slot="meeting-teaser">
+      {nextMeeting && (
+        <div class="mt-8 inline-flex items-center gap-3 px-4 py-2 bg-mystic-800/50 rounded-full border border-mystic-600/30 backdrop-blur-sm">
+          <span class="text-lantern-400 animate-pulse"><i class="fa-solid fa-sharp fa-sparkle"></i></span>
+          <span class="text-sm text-mystic-200">
+            Next meeting: <strong class="text-white">{formatDate(nextMeeting.data.date)}</strong>
+          </span>
+        </div>
+      )}
+    </Fragment>
+  </Hero>
+
+  <!-- How It Works Section -->
+  <section class="py-16 md:py-20 transition-colors duration-300">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-4">
+          How It Works
+        </h2>
+        <p class="text-lg text-mystic-600 dark:text-mystic-400 max-w-2xl mx-auto">
+          No assigned reading. No pressure. Just good conversations about books we love.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="relative text-center group">
+          <div class="w-16 h-16 mx-auto mb-4 bg-linear-to-br from-mystic-500 to-mystic-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-mystic-500/20 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-sharp fa-bullseye"></i>
+          </div>
+          <h3 class="text-xl font-display font-semibold text-mystic-900 dark:text-mystic-100 mb-2">
+            Vote on a Theme
+          </h3>
+          <p class="text-mystic-600 dark:text-mystic-400">
+            Each month, members vote on a theme like "Lost at Sea" or "Portal Fantasy." Anyone can submit theme ideas!
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative text-center group">
+          <div class="w-16 h-16 mx-auto mb-4 bg-linear-to-br from-bermuda-500 to-bermuda-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-bermuda-500/20 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-sharp fa-books"></i>
+          </div>
+          <h3 class="text-xl font-display font-semibold text-mystic-900 dark:text-mystic-100 mb-2">
+            Read What You Want
+          </h3>
+          <p class="text-mystic-600 dark:text-mystic-400">
+            Pick <em>any</em> book that fits the theme—or just come to listen. We share a starter list to help you choose.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative text-center group">
+          <div class="w-16 h-16 mx-auto mb-4 bg-linear-to-br from-lantern-500 to-lantern-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-lantern-500/20 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-sharp fa-comments"></i>
+          </div>
+          <h3 class="text-xl font-display font-semibold text-mystic-900 dark:text-mystic-100 mb-2">
+            Share & Discover
+          </h3>
+          <p class="text-mystic-600 dark:text-mystic-400">
+            Give a quick pitch at the meeting: what's it about, did it work for you, and who would love it?
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center mt-10">
+        <a href="/about" class="inline-flex items-center gap-2 text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 font-medium transition-colors">
+          Learn more about meetings
+          <i class="fa-solid fa-sharp fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Current Theme Section -->
+  {currentTheme && (
+    <section class="py-16 md:py-20 transition-colors duration-300">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+          <div>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-mystic-500 dark:text-mystic-400 uppercase tracking-wide mb-2">
+              <span class="text-lantern-500"><i class="fa-solid fa-sharp fa-sparkles"></i></span>
+              Current Theme
+            </span>
+            <h2 class="text-3xl md:text-4xl font-display font-bold text-mystic-900 dark:text-mystic-100">
+              {currentTheme.data.title}
+            </h2>
+          </div>
+          <a href={`/themes/${currentTheme.id}`} class="btn btn-outline self-start md:self-auto">
+            View Full Theme
+          </a>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8">
+          <!-- Theme description -->
+          <div class="card p-6 md:p-8">
+            <p class="text-lg text-mystic-700 dark:text-mystic-300 leading-relaxed mb-6">
+              {currentTheme.data.summary}
+            </p>
+
+            {currentTheme.data.tags && (
+              <div class="flex flex-wrap gap-2">
+                {currentTheme.data.tags.map((tag: string) => (
+                  <span class="px-3 py-1 bg-mystic-100 dark:bg-mystic-800 text-mystic-600 dark:text-mystic-400 text-sm rounded-full">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {currentTheme.data.meetingDate && (
+              <div class="mt-6 pt-6 border-t border-mystic-100 dark:border-mystic-800 flex items-center gap-3 text-mystic-600 dark:text-mystic-400">
+                <span class="text-2xl text-lantern-500"><i class="fa-solid fa-sharp fa-calendar-day"></i></span>
+                <div>
+                  <p class="text-sm text-mystic-500 dark:text-mystic-500">Meeting Date</p>
+                  <p class="font-semibold text-mystic-800 dark:text-mystic-200">{formatDate(currentTheme.data.meetingDate)}</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <!-- Starter list preview -->
+          {currentTheme.data.starterList && (
+            <div class="bg-linear-to-br from-mystic-50 to-bermuda-50 dark:from-mystic-900 dark:to-mystic-950 rounded-2xl p-6 md:p-8">
+              <StarterList books={currentTheme.data.starterList.slice(0, 3)} compact />
+              {currentTheme.data.starterList.length > 3 && (
+                <p class="mt-4 text-sm text-mystic-500 dark:text-mystic-400 text-center">
+                  +{currentTheme.data.starterList.length - 3} more recommendations on the theme page
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Next Meeting Section -->
+  {nextMeeting && (
+    <section class="py-16 md:py-20 bg-linear-to-br from-mystic-100 to-bermuda-50 dark:from-mystic-900 dark:to-mystic-900 transition-colors duration-300">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-8">
+          <span class="inline-flex items-center gap-2 text-sm font-semibold text-bermuda-600 dark:text-bermuda-400 uppercase tracking-wide mb-2">
+            <i class="fa-solid fa-sharp fa-calendar"></i>
+            Up Next
+          </span>
+          <h2 class="text-3xl md:text-4xl font-display font-bold text-mystic-900 dark:text-mystic-100">
+            Next Meeting
+          </h2>
+        </div>
+
+        <MeetingCard meeting={nextMeeting} />
+
+        <div class="text-center mt-8">
+          <a href="/meetings" class="inline-flex items-center gap-2 text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 font-medium transition-colors">
+            View all meetings
+            <i class="fa-solid fa-sharp fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Past Themes Section -->
+  {pastThemes.length > 0 && (
+    <section class="py-16 md:py-20 transition-colors duration-300">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-4">
+            Explore Past Themes
+          </h2>
+          <p class="text-lg text-mystic-600 dark:text-mystic-400">
+            Catch up on what we've discussed—and maybe find your next read.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          {pastThemes.map((theme) => (
+            <ThemeCard
+              title={theme.data.title}
+              slug={theme.id}
+              summary={theme.data.summary}
+              status={theme.data.status}
+              meetingDate={theme.data.meetingDate}
+              tags={theme.data.tags}
+              compact
+            />
+          ))}
+        </div>
+
+        <div class="text-center mt-10">
+          <a href="/themes" class="btn btn-outline">
+            Browse All Themes
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA Section -->
+  <section class="py-16 md:py-24 bg-linear-to-br from-mystic-900 via-mystic-800 to-mystic-900 text-white relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 bg-stars opacity-30" aria-hidden="true"></div>
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-mystic-500/10 rounded-full blur-3xl" aria-hidden="true"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-bermuda-500/10 rounded-full blur-3xl" aria-hidden="true"></div>
+
+    <div class="relative max-w-3xl mx-auto px-4 text-center">
+      <span class="text-4xl text-lantern-400 mb-4 block"><i class="fa-solid fa-sharp fa-lightbulb"></i></span>
+      <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+        Got a Theme Idea?
+      </h2>
+      <p class="text-lg text-mystic-200 mb-8 max-w-xl mx-auto">
+        "Time Loops & Reset Stories"? "Cozy Apocalypse"? "Unreliable Narrators"?
+        We're always looking for fresh theme ideas from readers like you.
+      </p>
+      <a href="/submit" class="btn btn-secondary">
+        <span>Submit a Theme</span>
+        <i class="fa-solid fa-sharp fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+  </section>
 </Layout>

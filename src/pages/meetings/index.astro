@@ -1,0 +1,188 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import MeetingCard from "../../components/MeetingCard.astro";
+import { getCollection } from "astro:content";
+
+// Get all meetings
+const meetings = await getCollection("meetings");
+
+// Sort meetings: upcoming first (by date ascending), then past (by date descending)
+const now = new Date();
+
+const upcomingMeetings = meetings
+    .filter((m) => new Date(m.data.date) >= now)
+    .sort(
+        (a, b) =>
+            new Date(a.data.date).getTime() - new Date(b.data.date).getTime(),
+    );
+
+const pastMeetings = meetings
+    .filter((m) => new Date(m.data.date) < now)
+    .sort(
+        (a, b) =>
+            new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+    );
+---
+
+<Layout
+    title="Meetings"
+    description="Find upcoming and past meetings of the Bermuda Triangle Society book club."
+>
+    <!-- Page Header -->
+    <section
+        class="bg-linear-to-b from-mystic-900 to-mystic-800 text-white py-16 md:py-20"
+    >
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <span
+                class="inline-flex items-center gap-2 text-lantern-400 text-sm font-semibold uppercase tracking-wide mb-4"
+            >
+                <i class="fa-solid fa-sharp fa-calendar"></i>
+                Schedule
+            </span>
+            <h1
+                class="text-4xl md:text-5xl font-display font-bold text-white mb-6"
+            >
+                Meetings
+            </h1>
+            <p class="text-xl text-mystic-200 max-w-2xl mx-auto">
+                We meet monthly at the Bermuda National Library. Drop in, listen
+                to pitches, and discover your next favorite book.
+            </p>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-20 transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4">
+            <!-- Upcoming Meetings -->
+            {
+                upcomingMeetings.length > 0 && (
+                    <div class="mb-16">
+                        <h2 class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-6 flex items-center gap-3">
+                            <span class="w-10 h-10 bg-bermuda-500 text-white rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-sharp fa-sparkles" />
+                            </span>
+                            Upcoming Meetings
+                        </h2>
+                        <div class="space-y-6">
+                            {upcomingMeetings.map((meeting) => (
+                                <MeetingCard meeting={meeting} />
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+
+            <!-- No Upcoming Meetings Message -->
+            {
+                upcomingMeetings.length === 0 && (
+                    <div class="mb-16 card p-8 text-center bg-linear-to-br from-mystic-50 to-bermuda-50 dark:from-mystic-900 dark:to-mystic-950">
+                        <span class="text-4xl text-mystic-400 mb-4 block">
+                            <i class="fa-solid fa-sharp fa-books" />
+                        </span>
+                        <h2 class="text-xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-2">
+                            No Upcoming Meetings Scheduled
+                        </h2>
+                        <p class="text-mystic-600 dark:text-mystic-400 mb-4">
+                            Check back soon! We typically meet monthly on
+                            Saturdays.
+                        </p>
+                        <a
+                            href="/themes"
+                            class="text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-700 dark:hover:text-bermuda-300 font-medium"
+                        >
+                            Browse themes in the meantime{" "}
+                            <i class="fa-solid fa-sharp fa-arrow-right" />
+                        </a>
+                    </div>
+                )
+            }
+
+            <!-- Past Meetings -->
+            {
+                pastMeetings.length > 0 && (
+                    <div>
+                        <h2 class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-6 flex items-center gap-3">
+                            <span class="w-10 h-10 bg-mystic-200 dark:bg-mystic-800 text-mystic-600 dark:text-mystic-400 rounded-xl flex items-center justify-center">
+                                <i class="fa-solid fa-sharp fa-book" />
+                            </span>
+                            Past Meetings
+                        </h2>
+                        <div class="space-y-4">
+                            {pastMeetings.map((meeting) => (
+                                <MeetingCard
+                                    meeting={meeting}
+                                    variant="compact"
+                                />
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+
+            <!-- Location Info -->
+            <div
+                class="mt-16 card p-8 bg-linear-to-br from-bermuda-50 to-lantern-50 dark:from-mystic-900 dark:to-mystic-950"
+            >
+                <h3
+                    class="text-xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-4 flex items-center gap-2"
+                >
+                    <span class="text-bermuda-500"
+                        ><i class="fa-solid fa-sharp fa-location-dot"></i></span
+                    >
+                    Meeting Location
+                </h3>
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div>
+                        <address
+                            class="not-italic text-mystic-600 dark:text-mystic-400"
+                        >
+                            <a
+                                href="https://bnl.bm"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="font-semibold text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-700 dark:hover:text-bermuda-300"
+                            >
+                                Bermuda National Library
+                            </a><br />
+                            13 Queen St.<br />
+                            Hamilton HM 11<br />
+                            Bermuda
+                        </address>
+                    </div>
+                    <div class="text-mystic-600 dark:text-mystic-400">
+                        <p>
+                            <strong class="text-mystic-800 dark:text-mystic-200"
+                                >When:</strong
+                            > Monthly on Saturdays
+                        </p>
+                        <p>
+                            <strong class="text-mystic-800 dark:text-mystic-200"
+                                >Time:</strong
+                            > 2:00 PM – 3:30 PM
+                        </p>
+                        <p class="mt-2 text-sm">
+                            Street parking available on Queen Street.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section
+        class="py-12 bg-mystic-100 dark:bg-mystic-900 transition-colors duration-300"
+    >
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <h2
+                class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-4"
+            >
+                First Time?
+            </h2>
+            <p class="text-mystic-600 dark:text-mystic-400 mb-6">
+                Learn how our theme-based book club works—no homework required!
+            </p>
+            <a href="/about" class="btn btn-primary">How It Works</a>
+        </div>
+    </section>
+</Layout>

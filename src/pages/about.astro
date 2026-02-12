@@ -1,0 +1,414 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+    title="About"
+    description="Learn how the Bermuda Triangle Society book club works. Theme-based reading, no homework required!"
+>
+    <!-- Page Header -->
+    <section
+        class="bg-linear-to-b from-mystic-900 to-mystic-800 text-white py-16 md:py-20"
+    >
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <span
+                class="inline-flex items-center gap-2 text-lantern-400 text-sm font-semibold uppercase tracking-wide mb-4"
+            >
+                <i class="fa-solid fa-sharp fa-triangle"></i>
+                About Us
+            </span>
+            <h1
+                class="text-4xl md:text-5xl font-display font-bold text-white mb-6"
+            >
+                How the Society Works
+            </h1>
+            <p class="text-xl text-mystic-200 max-w-2xl mx-auto">
+                We're a monthly book club for science fiction, fantasy, and the
+                wonderfully weird—without the homework.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-16 md:py-20 transition-colors duration-300">
+        <div class="max-w-3xl mx-auto px-4">
+            <!-- What We Are -->
+            <div class="prose mb-16">
+                <h2 class="flex items-center gap-3">
+                    <span class="text-2xl text-lantern-500"
+                        ><i class="fa-solid fa-sharp fa-sparkles"></i></span
+                    >
+                    What is the Bermuda Triangle Society?
+                </h2>
+                <p>
+                    We're a monthly, <strong>theme-based</strong> book club for readers
+                    who love speculative fiction—science fiction, fantasy, mystery
+                    with weird elements, and everything in between.
+                </p>
+                <p>
+                    Instead of everyone reading the same book, we pick a <em
+                        >theme</em
+                    > each month (like "Lost at Sea" or "AI & Androids"), and members
+                    read <strong>any book that fits</strong>. Then we gather to
+                    share what we discovered.
+                </p>
+                <p>
+                    The result? A curated set of recommendations from people who
+                    actually read the books, tailored to our group's tastes—plus
+                    a welcoming space for anyone who just wants to listen and
+                    learn what to read next.
+                </p>
+            </div>
+
+            <!-- The Theme League Format -->
+            <div
+                class="card p-8 mb-12 bg-linear-to-br from-mystic-50 to-bermuda-50 dark:from-mystic-900 dark:to-mystic-950"
+            >
+                <h2
+                    class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-6 flex items-center gap-3"
+                >
+                    <span class="text-2xl text-mystic-500"
+                        ><i class="fa-solid fa-sharp fa-bullseye"></i></span
+                    >
+                    The "Theme League" Format
+                </h2>
+                <p class="text-mystic-700 dark:text-mystic-200 mb-6">
+                    Our approach is sometimes called "Theme League"—here's why
+                    it works:
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <span
+                            class="w-6 h-6 bg-mystic-500 text-white rounded-full flex items-center justify-center shrink-0 text-sm font-bold mt-0.5"
+                            >1</span
+                        >
+                        <div>
+                            <strong class="text-mystic-900 dark:text-mystic-100"
+                                >No assigned reading.</strong
+                            >
+                            <span class="text-mystic-600 dark:text-mystic-300">
+                                Pick any book (or audiobook!) that fits the
+                                theme. Read what excites you.</span
+                            >
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span
+                            class="w-6 h-6 bg-mystic-500 text-white rounded-full flex items-center justify-center shrink-0 text-sm font-bold mt-0.5"
+                            >2</span
+                        >
+                        <div>
+                            <strong class="text-mystic-900 dark:text-mystic-100"
+                                >No homework pressure.</strong
+                            >
+                            <span class="text-mystic-600 dark:text-mystic-300">
+                                Didn't finish? No problem. Come to listen. Come
+                                for the vibes. Come for the snacks.</span
+                            >
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span
+                            class="w-6 h-6 bg-mystic-500 text-white rounded-full flex items-center justify-center shrink-0 text-sm font-bold mt-0.5"
+                            >3</span
+                        >
+                        <div>
+                            <strong class="text-mystic-900 dark:text-mystic-100"
+                                >Discovery-focused.</strong
+                            >
+                            <span class="text-mystic-600 dark:text-mystic-300">
+                                You'll leave with a list of books recommended by
+                                real readers—not algorithms.</span
+                            >
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span
+                            class="w-6 h-6 bg-mystic-500 text-white rounded-full flex items-center justify-center shrink-0 text-sm font-bold mt-0.5"
+                            >4</span
+                        >
+                        <div>
+                            <strong class="text-mystic-900 dark:text-mystic-100"
+                                >Democratic themes.</strong
+                            >
+                            <span class="text-mystic-600 dark:text-mystic-300">
+                                Anyone can submit theme ideas, and we vote
+                                together on what's next.</span
+                            >
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- What Happens at a Meeting -->
+            <div class="prose mb-16">
+                <h2 class="flex items-center gap-3">
+                    <span class="text-2xl text-bermuda-500"
+                        ><i class="fa-solid fa-sharp fa-calendar"></i></span
+                    >
+                    What Happens at a Meeting?
+                </h2>
+                <p>
+                    Meetings run about 90 minutes and follow a relaxed
+                    structure:
+                </p>
+                <ol>
+                    <li>
+                        <strong>Quick hellos & reading mood check</strong> — We go
+                        around and share what kind of reading mood we've been in lately.
+                    </li>
+                    <li>
+                        <strong>Lightning pitches</strong> — If you read something
+                        for the theme, give a 2-3 minute pitch: What's it about? Did
+                        it work for you? Who would you recommend it to? (Spoiler-light,
+                        please!)
+                    </li>
+                    <li>
+                        <strong>Theme vote</strong> — We pick next month's theme from
+                        the pool of submitted ideas.
+                    </li>
+                    <li>
+                        <strong>Build the starter list</strong> — Together, we brainstorm
+                        books that fit the new theme. These get posted on the website
+                        so everyone has a head start.
+                    </li>
+                </ol>
+                <p>
+                    That's it. Low pressure, no need to get deep and
+                    philisophical.
+                </p>
+            </div>
+
+            <!-- Example Themes -->
+            <div class="mb-16">
+                <h2
+                    class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-6 flex items-center gap-3"
+                >
+                    <span class="text-2xl text-lantern-500"
+                        ><i class="fa-solid fa-sharp fa-lightbulb"></i></span
+                    >
+                    Example Themes
+                </h2>
+                <p class="text-mystic-600 dark:text-mystic-400 mb-6">
+                    Themes can be broad or specific, serious or silly. Here are
+                    some we've done or have in the pool:
+                </p>
+                <div class="grid sm:grid-cols-2 gap-3">
+                    <div
+                        class="bg-white dark:bg-mystic-950 rounded-xl p-4 border border-mystic-100 dark:border-mystic-800"
+                    >
+                        <span class="text-lg text-bermuda-500"
+                            ><i class="fa-solid fa-sharp fa-water"></i></span
+                        >
+                        <span
+                            class="ml-2 font-medium text-mystic-800 dark:text-mystic-200"
+                            >Lost at Sea</span
+                        >
+                        <p
+                            class="text-sm text-mystic-500 dark:text-mystic-400 mt-1"
+                        >
+                            Shipwrecks, ocean mysteries, underwater worlds
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-mystic-950 rounded-xl p-4 border border-mystic-100 dark:border-mystic-800"
+                    >
+                        <span class="text-lg text-mystic-500"
+                            ><i class="fa-solid fa-sharp fa-door-open"
+                            ></i></span
+                        >
+                        <span
+                            class="ml-2 font-medium text-mystic-800 dark:text-mystic-200"
+                            >Portal Fantasy</span
+                        >
+                        <p
+                            class="text-sm text-mystic-500 dark:text-mystic-400 mt-1"
+                        >
+                            Wardrobes, rabbit holes, mysterious doorways
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-mystic-950 rounded-xl p-4 border border-mystic-100 dark:border-mystic-800"
+                    >
+                        <span class="text-lg text-bermuda-500"
+                            ><i class="fa-solid fa-sharp fa-robot"></i></span
+                        >
+                        <span
+                            class="ml-2 font-medium text-mystic-800 dark:text-mystic-200"
+                            >AI & Androids</span
+                        >
+                        <p
+                            class="text-sm text-mystic-500 dark:text-mystic-400 mt-1"
+                        >
+                            Synthetic minds, robot uprisings, digital souls
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-mystic-950 rounded-xl p-4 border border-mystic-100 dark:border-mystic-800"
+                    >
+                        <span class="text-lg text-lantern-500"
+                            ><i class="fa-solid fa-sharp fa-rotate"></i></span
+                        >
+                        <span
+                            class="ml-2 font-medium text-mystic-800 dark:text-mystic-200"
+                            >Time Loops</span
+                        >
+                        <p
+                            class="text-sm text-mystic-500 dark:text-mystic-400 mt-1"
+                        >
+                            Groundhog Day energy, reset stories
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-mystic-950 rounded-xl p-4 border border-mystic-100 dark:border-mystic-800"
+                    >
+                        <span class="text-lg text-mystic-500"
+                            ><i class="fa-solid fa-sharp fa-people-group"
+                            ></i></span
+                        >
+                        <span
+                            class="ml-2 font-medium text-mystic-800 dark:text-mystic-200"
+                            >Found Family</span
+                        >
+                        <p
+                            class="text-sm text-mystic-500 dark:text-mystic-400 mt-1"
+                        >
+                            Bonds formed under pressure, chosen families
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-mystic-950 rounded-xl p-4 border border-mystic-100 dark:border-mystic-800"
+                    >
+                        <span class="text-lg text-lantern-500"
+                            ><i class="fa-solid fa-sharp fa-wand-magic-sparkles"
+                            ></i></span
+                        >
+                        <span
+                            class="ml-2 font-medium text-mystic-800 dark:text-mystic-200"
+                            >Magic Gone Wrong</span
+                        >
+                        <p
+                            class="text-sm text-mystic-500 dark:text-mystic-400 mt-1"
+                        >
+                            Spells backfiring, magical chaos
+                        </p>
+                    </div>
+                </div>
+                <p class="text-center mt-6">
+                    <a
+                        href="/submit"
+                        class="text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 font-medium"
+                    >
+                        Have a theme idea? Submit it <i
+                            class="fa-solid fa-sharp fa-arrow-right"></i>
+                    </a>
+                </p>
+            </div>
+
+            <!-- Who Can Join -->
+            <div class="prose mb-16">
+                <h2 class="flex items-center gap-3">
+                    <span class="text-2xl text-bermuda-500"
+                        ><i class="fa-solid fa-sharp fa-hand-wave"></i></span
+                    >
+                    Who Can Join?
+                </h2>
+                <p>
+                    Everyone! You don't need to be a hardcore sci-fi reader or a
+                    fantasy expert. If you're curious about speculative stories,
+                    you're welcome here.
+                </p>
+                <p>We especially love:</p>
+                <ul>
+                    <li>
+                        Readers who've "always meant to try more sci-fi/fantasy"
+                    </li>
+                    <li>Audiobook enthusiasts (they totally count!)</li>
+                    <li>
+                        People who just want recommendations without commitment
+                    </li>
+                    <li>Anyone who enjoys friendly book chat</li>
+                </ul>
+            </div>
+
+            <!-- Where & When -->
+            <div
+                class="card p-8 bg-linear-to-br from-bermuda-50 to-lantern-50 dark:from-mystic-900 dark:to-mystic-950"
+            >
+                <h2
+                    class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-6 flex items-center gap-3"
+                >
+                    <span class="text-2xl text-bermuda-500"
+                        ><i class="fa-solid fa-sharp fa-location-dot"></i></span
+                    >
+                    Where & When
+                </h2>
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div>
+                        <h3
+                            class="font-semibold text-mystic-800 dark:text-mystic-200 mb-2"
+                        >
+                            Location
+                        </h3>
+                        <address
+                            class="not-italic text-mystic-600 dark:text-mystic-400"
+                        >
+                            <a
+                                href="https://bnl.bm"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="font-semibold text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-700 dark:hover:text-bermuda-300"
+                            >
+                                Bermuda National Library
+                            </a><br />
+                            13 Queen St.<br />
+                            Hamilton HM 11<br />
+                            Bermuda
+                        </address>
+                    </div>
+                    <div>
+                        <h3
+                            class="font-semibold text-mystic-800 dark:text-mystic-200 mb-2"
+                        >
+                            Schedule
+                        </h3>
+                        <p class="text-mystic-600 dark:text-mystic-400">
+                            Monthly on Saturdays<br />
+                            2:00 PM – 3:30 PM
+                        </p>
+                        <p class="mt-3">
+                            <a
+                                href="/meetings"
+                                class="text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-700 dark:hover:text-bermuda-300 font-medium"
+                            >
+                                See upcoming meetings <i
+                                    class="fa-solid fa-sharp fa-arrow-right"
+                                ></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section
+        class="py-12 bg-mystic-100 dark:bg-mystic-900 transition-colors duration-300"
+    >
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <h2
+                class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-4"
+            >
+                Ready to Explore?
+            </h2>
+            <p class="text-mystic-600 dark:text-mystic-400 mb-6">
+                Check out the current theme and join us at the next meeting.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/themes" class="btn btn-primary">Browse Themes</a>
+                <a href="/meetings" class="btn btn-outline">View Meetings</a>
+            </div>
+        </div>
+    </section>
+</Layout>

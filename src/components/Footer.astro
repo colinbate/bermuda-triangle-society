@@ -1,0 +1,147 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+    class="bg-mystic-300 dark:bg-mystic-950 dark:text-mystic-100 text-slate-950 mt-auto relative"
+>
+    <div class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Club Info -->
+            <div>
+                <h3
+                    class="text-xl font-display font-bold mb-4 flex items-center gap-2"
+                >
+                    <span class="dark:text-mystic-400">
+                        <i class="fa-solid fa-sharp fa-triangle"></i>
+                    </span>
+                    Bermuda Triangle Society
+                </h3>
+                <p class="dark:text-mystic-300 text-sm leading-relaxed">
+                    A monthly, theme-based book club for science fiction and
+                    fantasy readers. No homework required—just bring your
+                    enthusiasm for speculative stories.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-lg font-display font-semibold mb-4">
+                    Quick Links
+                </h4>
+                <ul class="space-y-2 text-sm">
+                    <li>
+                        <a
+                            href="/themes"
+                            class="dark:text-mystic-300 hover:text-lantern-400 transition-colors"
+                        >
+                            Browse Themes
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/meetings"
+                            class="dark:text-mystic-300 hover:text-lantern-400 transition-colors"
+                        >
+                            Upcoming Meetings
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/about"
+                            class="dark:text-mystic-300 hover:text-lantern-400 transition-colors"
+                        >
+                            How It Works
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/submit"
+                            class="dark:text-mystic-300 hover:text-lantern-400 transition-colors"
+                        >
+                            Submit a Theme
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/conduct"
+                            class="dark:text-mystic-300 hover:text-lantern-400 transition-colors"
+                        >
+                            Code of Conduct
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Meeting Location -->
+            <div>
+                <h4 class="text-lg font-display font-semibold mb-4">
+                    We Meet At
+                </h4>
+                <address
+                    class="not-italic text-sm dark:text-mystic-300 space-y-1"
+                >
+                    <p
+                        class="font-semibold text-bermuda-800 dark:text-bermuda-400"
+                    >
+                        Bermuda National Library
+                    </p>
+                    <p>13 Queen St.</p>
+                    <p>Hamilton HM 11</p>
+                    <p>Bermuda</p>
+                    <p class="pt-2">
+                        <a
+                            href="https://bnl.bm"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-bermuda-800 hover:text-bermuda-700 dark:text-bermuda-400 hover:dark:text-bermuda-300 transition-colors inline-flex items-center gap-1"
+                        >
+                            bnl.bm
+                            <i
+                                class="fa-solid fa-sharp fa-arrow-up-right-from-square text-xs"
+                            ></i>
+                        </a>
+                    </p>
+                </address>
+                <p class="mt-4 text-xs dark:text-mystic-400">
+                    Monthly meetings · Saturdays · 2:00 PM
+                </p>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div
+            class="mt-12 pt-8 border-t border-mystic-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-mystic-700 dark:text-mystic-400"
+        >
+            <p>
+                © {currentYear} Bermuda Triangle Society. All book covers and titles
+                belong to their respective owners.
+            </p>
+            <p class="flex items-center gap-2">
+                <span class="text-lantern-500"
+                    ><i class="fa-solid fa-sharp fa-sparkle"></i></span
+                >
+                Made with love for speculative fiction
+                <span class="text-bermuda-500"
+                    ><i class="fa-solid fa-sharp fa-sparkle"></i></span
+                >
+            </p>
+        </div>
+    </div>
+
+    <!-- Decorative wave at top of footer -->
+    <div
+        class="absolute top-0 left-0 right-0 -translate-y-full overflow-hidden pointer-events-none"
+        aria-hidden="true"
+    >
+        <svg
+            class="w-full h-6 text-mystic-300 dark:text-mystic-950"
+            viewBox="0 0 1200 30"
+            preserveAspectRatio="none"
+        >
+            <path
+                d="M0,30 C300,10 400,20 600,15 C800,10 900,25 1200,10 L1200,30 Z"
+                fill="currentColor"></path>
+        </svg>
+    </div>
+</footer>

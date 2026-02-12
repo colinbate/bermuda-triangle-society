@@ -1,0 +1,42 @@
+---
+interface Props {
+    label?: string;
+    variant?:
+        | "default"
+        | "subtle"
+        | "format"
+        | "source"
+        | "success"
+        | "neutral";
+    size?: "sm" | "md";
+}
+
+const { label, variant = "default", size = "sm" } = Astro.props;
+
+const baseClasses =
+    "inline-flex items-center font-medium rounded-full transition-colors";
+
+const sizeClasses = {
+    sm: "px-2.5 py-0.5 text-xs",
+    md: "px-3 py-1 text-sm",
+};
+
+const variantClasses = {
+    default:
+        "bg-mystic-100 dark:bg-mystic-800 text-mystic-700 dark:text-mystic-300",
+    subtle: "bg-mystic-50 dark:bg-mystic-800/50 text-mystic-600 dark:text-mystic-400 border border-mystic-200 dark:border-mystic-700",
+    format: "bg-bermuda-100 dark:bg-bermuda-900/50 text-bermuda-700 dark:text-bermuda-300",
+    source: "bg-lantern-100 dark:bg-lantern-900/50 text-lantern-700 dark:text-lantern-300",
+    success: "bg-bermuda-500 text-white",
+    neutral:
+        "bg-mystic-200 dark:bg-mystic-700 text-mystic-600 dark:text-mystic-300",
+};
+
+const classes = [baseClasses, sizeClasses[size], variantClasses[variant]].join(
+    " ",
+);
+---
+
+<span class={classes}>
+    {label ? label : <slot />}
+</span>

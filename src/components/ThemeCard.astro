@@ -1,0 +1,123 @@
+---
+import TagPill from "./TagPill.astro";
+
+interface Props {
+    title: string;
+    slug: string;
+    summary: string;
+    status: "current" | "upcoming" | "past";
+    meetingDate?: string;
+    tags?: string[];
+    compact?: boolean;
+}
+
+const {
+    title,
+    slug,
+    summary,
+    status,
+    meetingDate,
+    tags,
+    compact = false,
+} = Astro.props;
+
+const statusConfig = {
+    current: {
+        label: "Current Theme",
+        classes: "bg-linear-to-r from-mystic-500 to-bermuda-500 text-white",
+        icon: "fa-solid fa-sharp fa-sparkles",
+    },
+    upcoming: {
+        label: "Up Next",
+        classes:
+            "bg-lantern-100 dark:bg-lantern-900/50 text-lantern-800 dark:text-lantern-300 border border-lantern-300 dark:border-lantern-700",
+        icon: "fa-solid fa-sharp fa-calendar",
+    },
+    past: {
+        label: "Past",
+        classes:
+            "bg-mystic-100 dark:bg-mystic-800 text-mystic-600 dark:text-mystic-400",
+        icon: "fa-solid fa-sharp fa-book",
+    },
+};
+
+const config = statusConfig[status];
+
+function formatDate(dateStr: string): string {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+    });
+}
+---
+
+<article class:list={["card card-hover group", compact ? "p-4" : "p-6"]}>
+    <a href={`/themes/${slug}`} class="block">
+        <!-- Status Badge -->
+        <div class="flex items-start justify-between gap-4 mb-3">
+            <span
+                class:list={[
+                    "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold",
+                    config.classes,
+                ]}
+            >
+                <i class={config.icon} aria-hidden="true"></i>
+                {config.label}
+            </span>
+
+            {
+                meetingDate && (
+                    <span class="text-xs text-mystic-500 dark:text-mystic-400 whitespace-nowrap">
+                        {formatDate(meetingDate)}
+                    </span>
+                )
+            }
+        </div>
+
+        <!-- Title -->
+        <h3
+            class:list={[
+                "font-display font-bold text-mystic-900 dark:text-mystic-100 group-hover:text-mystic-700 dark:group-hover:text-mystic-300 transition-colors",
+                compact ? "text-lg mb-2" : "text-xl mb-3",
+            ]}
+        >
+            {title}
+        </h3>
+
+        <!-- Summary -->
+        <p
+            class:list={[
+                "text-mystic-600 dark:text-mystic-400 leading-relaxed",
+                compact ? "text-sm line-clamp-2" : "line-clamp-3",
+            ]}
+        >
+            {summary}
+        </p>
+
+        <!-- Tags -->
+        {
+            tags && tags.length > 0 && !compact && (
+                <div class="flex flex-wrap gap-2 mt-4">
+                    {tags.slice(0, 4).map((tag) => (
+                        <TagPill label={tag} variant="subtle" size="sm" />
+                    ))}
+                </div>
+            )
+        }
+
+        <!-- CTA -->
+        <div
+            class:list={[
+                "flex items-center gap-2 text-mystic-600 dark:text-mystic-400 group-hover:text-mystic-800 dark:group-hover:text-mystic-200 transition-colors font-medium",
+                compact ? "mt-3 text-sm" : "mt-4",
+            ]}
+        >
+            <span>View theme</span>
+            <i
+                class="fa-solid fa-sharp fa-arrow-right text-sm transform group-hover:translate-x-1 transition-transform"
+                aria-hidden="true"></i>
+        </div>
+    </a>
+</article>

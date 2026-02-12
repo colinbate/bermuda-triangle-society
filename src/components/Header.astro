@@ -1,0 +1,129 @@
+---
+import { getCollection } from "astro:content";
+import ModeSwitcher from "./ModeSwitcher.svelte";
+
+const themes = await getCollection("themes");
+const currentTheme = themes.find((t) => t.data.status === "current");
+
+const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/themes", label: "Themes" },
+    { href: "/meetings", label: "Meetings" },
+    { href: "/about", label: "About" },
+    { href: "/submit", label: "Submit Theme" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+    class="bg-white/80 dark:bg-mystic-950/80 backdrop-blur-md sticky top-0 z-50 border-b border-mystic-100 dark:border-mystic-800 transition-colors duration-300"
+>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo / Site Name -->
+            <a href="/" class="flex items-center gap-2 group">
+                <span
+                    class="text-mystic-600 dark:text-mystic-400 text-lg sm:text-xl"
+                    aria-hidden="true"
+                >
+                    <i class="fa-solid fa-sharp fa-triangle"></i>
+                </span>
+                <span
+                    class="font-display font-bold text-base sm:text-lg xl:text-xl text-mystic-900 dark:text-mystic-100 group-hover:text-mystic-700 dark:group-hover:text-mystic-300 transition-colors"
+                >
+                    Bermuda Triangle Society
+                </span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-1">
+                {
+                    navLinks.map((link) => (
+                        <a
+                            href={link.href}
+                            class:list={[
+                                "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+                                currentPath === link.href ||
+                                (link.href !== "/" &&
+                                    currentPath.startsWith(link.href))
+                                    ? "bg-mystic-100 dark:bg-mystic-800 text-mystic-900 dark:text-mystic-100"
+                                    : "text-mystic-600 dark:text-mystic-400 hover:text-mystic-900 dark:hover:text-mystic-100 hover:bg-mystic-50 dark:hover:bg-mystic-800/50",
+                            ]}
+                        >
+                            {link.label}
+                        </a>
+                    ))
+                }
+
+                <!-- Mode Switcher -->
+                <div class="ml-3">
+                    <ModeSwitcher client:load />
+                </div>
+            </nav>
+
+            <!-- Mobile: Mode Switcher + Menu Button -->
+            <div class="md:hidden flex items-center gap-2">
+                <ModeSwitcher client:load />
+
+                <button
+                    type="button"
+                    class="p-2 rounded-lg text-mystic-600 dark:text-mystic-400 hover:bg-mystic-100 dark:hover:bg-mystic-800 transition-colors"
+                    aria-label="Toggle menu"
+                    id="mobile-menu-button"
+                >
+                    <i
+                        class="fa-solid fa-sharp fa-bars w-6 h-6 text-xl"
+                        id="menu-open-icon"></i>
+                    <i
+                        class="fa-solid fa-sharp fa-xmark w-6 h-6 text-xl hidden!"
+                        id="menu-close-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="hidden md:hidden pb-4" id="mobile-menu">
+            <div class="flex flex-col gap-1">
+                {
+                    navLinks.map((link) => (
+                        <a
+                            href={link.href}
+                            class:list={[
+                                "px-4 py-3 rounded-lg font-medium transition-all duration-200",
+                                currentPath === link.href ||
+                                (link.href !== "/" &&
+                                    currentPath.startsWith(link.href))
+                                    ? "bg-mystic-100 dark:bg-mystic-800 text-mystic-900 dark:text-mystic-100"
+                                    : "text-mystic-600 dark:text-mystic-400 hover:text-mystic-900 dark:hover:text-mystic-100 hover:bg-mystic-50 dark:hover:bg-mystic-800/50",
+                            ]}
+                        >
+                            {link.label}
+                        </a>
+                    ))
+                }
+            </div>
+        </nav>
+    </div>
+</header>
+
+<script>
+    const menuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const openIcon = document.getElementById("menu-open-icon");
+    const closeIcon = document.getElementById("menu-close-icon");
+
+    menuButton?.addEventListener("click", () => {
+        const isOpen = !mobileMenu?.classList.contains("hidden");
+
+        if (isOpen) {
+            mobileMenu?.classList.add("hidden");
+            openIcon?.classList.remove("hidden!");
+            closeIcon?.classList.add("hidden!");
+        } else {
+            mobileMenu?.classList.remove("hidden");
+            openIcon?.classList.add("hidden!");
+            closeIcon?.classList.remove("hidden!");
+        }
+    });
+</script>
