@@ -122,19 +122,30 @@ const currentYear = new Date().getFullYear();
         </div>
     </div>
 
-    <!-- Decorative wave at top of footer -->
+    <!-- Decorative triangle pattern at top of footer -->
     <div
-        class="absolute top-0 left-0 right-0 -translate-y-full overflow-hidden pointer-events-none"
+        class="absolute top-0 left-0 right-0 -translate-y-full pointer-events-none"
         aria-hidden="true"
     >
         <svg
-            class="w-full h-6 text-mystic-300 dark:text-mystic-950"
-            viewBox="0 0 1200 30"
-            preserveAspectRatio="none"
+            class="w-full h-[21px] text-mystic-300 dark:text-mystic-950"
+            preserveAspectRatio="xMidYMax slice"
         >
-            <path
-                d="M0,30 C300,10 400,20 600,15 C800,10 900,25 1200,10 L1200,30 Z"
-                fill="currentColor"></path>
+            <defs>
+                <pattern
+                    id="footer-triangles"
+                    x="0"
+                    y="0"
+                    width="24"
+                    height="21"
+                    patternUnits="userSpaceOnUse"
+                >
+                    <polygon points="12,0 24,21 0,21" fill="currentColor"
+                    ></polygon>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#footer-triangles)"
+            ></rect>
         </svg>
     </div>
 </footer>
