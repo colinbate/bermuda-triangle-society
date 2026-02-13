@@ -1,37 +1,66 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import StarterList from "../../components/StarterList.astro";
-import TagPill from "../../components/TagPill.astro";
-import { getCollection, render } from "astro:content";
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
 
 export async function getStaticPaths() {
-    const themes = await getCollection("themes");
-    return themes.map((theme) => ({
-        params: { id: theme.id },
-        props: { theme },
+    const sessions = await getCollection("sessions");
+    return sessions.map((session) => ({
+        params: { id: session.id },
+        props: { session },
     }));
 }
 
-const { theme } = Astro.props;
-const { title, summary, status, meetingDate, voteDate, tags, starterList } =
-    theme.data;
-const { Content } = await render(theme);
+const { session } = Astro.props;
+const {
+    title,
+    status,
+    date,
+    time,
+    locationId,
+    themeTitle,
+    themeSummary,
+    tags,
+    starterList,
+} = session.data;
+
+// Get location data if available
+const locations = await getCollection("locations");
+const location = locationId
+    ? locations.find((l) => l.data.id === locationId)
+    : null;
+
+// Render the MDX content
+const { Content } = await render(session);
+
+// Format the date nicely
+const formattedDate = date.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "utc",
+});
+
+// Check if session is in the past
+const isPast = date < new Date();
 
 // Status configuration
 const statusConfig = {
     current: {
-        label: "Current Theme",
+        label: "Current Session",
         classes: "bg-linear-to-r from-mystic-500 to-bermuda-500 text-white",
         icon: "fa-solid fa-sharp fa-sparkles",
     },
     upcoming: {
-        label: "Up Next",
+        label: "Upcoming",
         classes:
             "bg-lantern-100 dark:bg-lantern-900/50 text-lantern-800 dark:text-lantern-300 border border-lantern-300 dark:border-lantern-700",
         icon: "fa-solid fa-sharp fa-calendar",
     },
     past: {
-        label: "Past Theme",
+        label: "Past Session",
         classes:
             "bg-mystic-100 dark:bg-mystic-800 text-mystic-600 dark:text-mystic-400",
         icon: "fa-solid fa-sharp fa-book",
@@ -39,18 +68,9 @@ const statusConfig = {
 };
 
 const config = statusConfig[status];
-
-function formatDate(dateStr: string): string {
-    return new Date(dateStr).toLocaleDateString("en-US", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
-}
 ---
 
-<Layout title={title} description={summary}>
+<Layout title={title} description={themeSummary}>
     <!-- Page Header -->
     <section
         class="bg-linear-to-b from-mystic-900 via-mystic-800 to-mystic-700 text-white py-16 md:py-24 relative overflow-hidden"
@@ -73,11 +93,11 @@ function formatDate(dateStr: string): string {
             <!-- Breadcrumb -->
             <nav class="mb-6">
                 <a
-                    href="/themes"
+                    href="/sessions"
                     class="text-mystic-300 hover:text-white transition-colors text-sm inline-flex items-center gap-2"
                 >
                     <i class="fa-solid fa-sharp fa-chevron-left"></i>
-                    All Themes
+                    All Sessions
                 </a>
             </nav>
 
@@ -96,36 +116,39 @@ function formatDate(dateStr: string): string {
             <h1
                 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 leading-tight text-white"
             >
-                {title}
+                {themeTitle}
             </h1>
 
             <!-- Summary -->
             <p class="text-xl text-mystic-200 max-w-2xl leading-relaxed">
-                {summary}
+                {themeSummary}
             </p>
 
             <!-- Meta info -->
             <div
                 class="mt-8 flex flex-wrap items-center gap-6 text-sm text-mystic-300"
             >
+                <div class="flex items-center gap-2">
+                    <i
+                        class="fa-solid fa-sharp fa-calendar-day text-lantern-400"
+                    ></i>
+                    <span>
+                        <strong class="text-white">{formattedDate}</strong>
+                    </span>
+                </div>
                 {
-                    meetingDate && (
+                    time && (
                         <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-sharp fa-calendar-day text-lantern-400" />
-                            <span>
-                                Meeting:{" "}
-                                <strong class="text-white">
-                                    {formatDate(meetingDate)}
-                                </strong>
-                            </span>
+                            <i class="fa-solid fa-sharp fa-clock text-lantern-400" />
+                            <span>{time}</span>
                         </div>
                     )
                 }
                 {
-                    voteDate && (
+                    location && (
                         <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-sharp fa-circle-check text-bermuda-400" />
-                            <span>Voted: {formatDate(voteDate)}</span>
+                            <i class="fa-solid fa-sharp fa-location-dot text-bermuda-400" />
+                            <span>{location.data.name}</span>
                         </div>
                     )
                 }
@@ -150,13 +173,13 @@ function formatDate(dateStr: string): string {
     <section class="py-12 md:py-16 transition-colors duration-300">
         <div class="max-w-6xl mx-auto px-4">
             <div class="grid lg:grid-cols-5 gap-12">
-                <!-- Theme Content -->
+                <!-- Session Content -->
                 <div class="lg:col-span-3">
-                    <div class="prose max-w-none">
+                    <div class="prose prose-mystic max-w-none">
                         <Content />
                     </div>
 
-                    <!-- CTA for current/upcoming themes -->
+                    <!-- CTA for current/upcoming sessions -->
                     {
                         (status === "current" || status === "upcoming") && (
                             <div class="mt-12 p-6 bg-linear-to-r from-mystic-100 to-bermuda-100 dark:from-mystic-800 dark:to-mystic-950 rounded-2xl border border-mystic-200 dark:border-mystic-700">
@@ -173,10 +196,10 @@ function formatDate(dateStr: string): string {
                                     for you? Who would love it?
                                 </p>
                                 <a
-                                    href="/meetings"
+                                    href="/about"
                                     class="inline-flex items-center gap-2 text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 font-medium transition-colors"
                                 >
-                                    View meeting details
+                                    Learn how meetings work
                                     <i class="fa-solid fa-sharp fa-arrow-right" />
                                 </a>
                             </div>
@@ -184,11 +207,12 @@ function formatDate(dateStr: string): string {
                     }
                 </div>
 
-                <!-- Starter List Sidebar -->
+                <!-- Sidebar -->
                 <aside class="lg:col-span-2">
+                    <!-- Starter List -->
                     {
                         starterList && starterList.length > 0 ? (
-                            <div class=" top-24">
+                            <div class="top-24">
                                 <div class="bg-linear-to-br from-mystic-50 to-bermuda-50 dark:from-mystic-900 dark:to-mystic-950 rounded-2xl p-6 border border-mystic-100 dark:border-mystic-950">
                                     <StarterList books={starterList} />
                                 </div>
@@ -203,8 +227,80 @@ function formatDate(dateStr: string): string {
                                 </h3>
                                 <p class="text-mystic-600 dark:text-mystic-400 text-sm">
                                     We'll build the starter list together at the
-                                    meeting before this theme.
+                                    meeting before this session.
                                 </p>
+                            </div>
+                        )
+                    }
+
+                    <!-- Location Card -->
+                    {
+                        location && (
+                            <div class="mt-6 card p-6">
+                                <h3 class="text-lg font-display font-semibold mb-3 flex items-center gap-2">
+                                    <span class="text-bermuda-500">
+                                        <i class="fa-location-dot fa-solid fa-sharp" />
+                                    </span>
+                                    Location
+                                </h3>
+                                <address class="not-italic text-mystic-600 dark:text-mystic-300 text-sm">
+                                    {location.data.name}
+                                    <br />
+                                    {location.data.address}
+                                </address>
+                                <a
+                                    href={location.data.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="inline-flex items-center gap-1 mt-3 text-sm text-bermuda-600 hover:text-bermuda-700 dark:text-bermuda-300 hover:dark:text-bermuda-400"
+                                >
+                                    Visit website
+                                    <svg
+                                        class="w-3 h-3"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        />
+                                    </svg>
+                                </a>
+                            </div>
+                        )
+                    }
+
+                    <!-- What to Bring -->
+                    {
+                        !isPast && (
+                            <div class="card p-6 mt-6">
+                                <h3 class="text-lg font-display font-semibold mb-3 flex items-center gap-2">
+                                    <span class="text-lantern-500">
+                                        <i class="fa-solid fa-sharp fa-sparkles" />
+                                    </span>
+                                    What to Bring
+                                </h3>
+                                <ul class="text-sm text-mystic-700 dark:text-mystic-200 space-y-2">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-lantern-500">•</span>A
+                                        book that fits the theme (optional!)
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-lantern-500">•</span>A
+                                        2-3 minute pitch if sharing
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-lantern-500">•</span>
+                                        Theme ideas for future sessions
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-lantern-500">•</span>
+                                        Your enthusiasm (required!)
+                                    </li>
+                                </ul>
                             </div>
                         )
                     }
@@ -221,11 +317,12 @@ function formatDate(dateStr: string): string {
                         <ul class="space-y-2 text-sm">
                             <li>
                                 <a
-                                    href="/meetings"
+                                    href="/sessions"
                                     class="text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 transition-colors flex items-center gap-2"
                                 >
                                     <i class="fa-solid fa-sharp fa-calendar w-4"
-                                    ></i> View meetings
+                                    ></i>
+                                    View all sessions
                                 </a>
                             </li>
                             <li>
@@ -235,17 +332,19 @@ function formatDate(dateStr: string): string {
                                 >
                                     <i
                                         class="fa-solid fa-sharp fa-lightbulb w-4"
-                                    ></i> Submit a theme idea
+                                    ></i>
+                                    Submit a theme idea
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    href="/themes"
+                                    href="/about"
                                     class="text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 transition-colors flex items-center gap-2"
                                 >
                                     <i
-                                        class="fa-solid fa-sharp fa-book-open w-4"
-                                    ></i> Browse all themes
+                                        class="fa-solid fa-sharp fa-circle-info w-4"
+                                    ></i>
+                                    How it works
                                 </a>
                             </li>
                         </ul>
@@ -261,11 +360,11 @@ function formatDate(dateStr: string): string {
     >
         <div class="max-w-4xl mx-auto px-4 flex justify-between">
             <a
-                href="/themes"
+                href="/sessions"
                 class="inline-flex items-center gap-2 text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 font-medium transition-colors"
             >
                 <i class="fa-solid fa-sharp fa-chevron-left"></i>
-                All Themes
+                All Sessions
             </a>
         </div>
     </section>

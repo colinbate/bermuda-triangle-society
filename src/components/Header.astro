@@ -2,13 +2,12 @@
 import { getCollection } from "astro:content";
 import ModeSwitcher from "./ModeSwitcher.svelte";
 
-const themes = await getCollection("themes");
-const currentTheme = themes.find((t) => t.data.status === "current");
+const sessions = await getCollection("sessions");
+const currentSession = sessions.find((s) => s.data.status === "current");
 
 const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/themes", label: "Themes" },
-    { href: "/meetings", label: "Meetings" },
+    { href: "/sessions", label: "Sessions" },
     { href: "/about", label: "About" },
     { href: "/submit", label: "Submit Theme" },
 ];

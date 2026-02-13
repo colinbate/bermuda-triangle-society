@@ -1,32 +1,37 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import MeetingCard from "../../components/MeetingCard.astro";
+import SessionCard from "../../components/SessionCard.astro";
 import { getCollection } from "astro:content";
 
-// Get all meetings
-const meetings = await getCollection("meetings");
+// Get all sessions
+const sessions = await getCollection("sessions");
 
-// Sort meetings: upcoming first (by date ascending), then past (by date descending)
-const now = new Date();
+// Sort sessions by status and date
+const sortOrder = { current: 0, upcoming: 1, past: 2 };
 
-const upcomingMeetings = meetings
-    .filter((m) => new Date(m.data.date) >= now)
-    .sort(
-        (a, b) =>
-            new Date(a.data.date).getTime() - new Date(b.data.date).getTime(),
-    );
+const sortedSessions = sessions.sort((a, b) => {
+    // First sort by status
+    const statusDiff = sortOrder[a.data.status] - sortOrder[b.data.status];
+    if (statusDiff !== 0) return statusDiff;
 
-const pastMeetings = meetings
-    .filter((m) => new Date(m.data.date) < now)
-    .sort(
-        (a, b) =>
-            new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
-    );
+    // Then by date
+    const dateA = new Date(a.data.date).getTime();
+    const dateB = new Date(b.data.date).getTime();
+
+    if (a.data.status === "past") {
+        return dateB - dateA; // Most recent first for past
+    }
+    return dateA - dateB; // Soonest first for upcoming
+});
+
+// Group sessions by status
+const currentSession = sortedSessions.find((s) => s.data.status === "current");
+const pastSessions = sortedSessions.filter((s) => s.data.status === "past");
 ---
 
 <Layout
-    title="Meetings"
-    description="Find upcoming and past meetings of the Bermuda Triangle Society book club."
+    title="Sessions"
+    description="Browse all sessions from the Bermuda Triangle Society book club. Find upcoming meetings and explore past themes."
 >
     <!-- Page Header -->
     <section
@@ -36,81 +41,82 @@ const pastMeetings = meetings
             <span
                 class="inline-flex items-center gap-2 text-lantern-400 text-sm font-semibold uppercase tracking-wide mb-4"
             >
-                <i class="fa-solid fa-sharp fa-calendar"></i>
-                Schedule
+                <i class="fa-solid fa-sharp fa-books"></i>
+                Our Sessions
             </span>
             <h1
                 class="text-4xl md:text-5xl font-display font-bold text-white mb-6"
             >
-                Meetings
+                Sessions
             </h1>
             <p class="text-xl text-mystic-200 max-w-2xl mx-auto">
-                We meet monthly at the Bermuda National Library. Drop in, listen
-                to pitches, and discover your next favorite book.
+                Each month we pick a theme and meet to share what we've read.
+                Browse our upcoming and past sessions below.
             </p>
         </div>
     </section>
 
+    <!-- Sessions Content -->
     <section class="py-16 md:py-20 transition-colors duration-300">
-        <div class="max-w-4xl mx-auto px-4">
-            <!-- Upcoming Meetings -->
+        <div class="max-w-6xl mx-auto px-4">
+            <!-- Current Session -->
             {
-                upcomingMeetings.length > 0 && (
+                currentSession && (
                     <div class="mb-16">
                         <h2 class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-6 flex items-center gap-3">
-                            <span class="w-10 h-10 bg-bermuda-500 text-white rounded-xl flex items-center justify-center">
+                            <span class="w-10 h-10 bg-linear-to-br from-mystic-500 to-bermuda-500 text-white rounded-xl flex items-center justify-center">
                                 <i class="fa-solid fa-sharp fa-sparkles" />
                             </span>
-                            Upcoming Meetings
+                            Next Session
                         </h2>
-                        <div class="space-y-6">
-                            {upcomingMeetings.map((meeting) => (
-                                <MeetingCard meeting={meeting} />
-                            ))}
+                        <div class="grid lg:grid-cols-3 gap-6">
+                            <div class="lg:col-span-2">
+                                <SessionCard session={currentSession} />
+                            </div>
                         </div>
                     </div>
                 )
             }
 
-            <!-- No Upcoming Meetings Message -->
+            <!-- No Upcoming Sessions Message -->
             {
-                upcomingMeetings.length === 0 && (
+                !currentSession && (
                     <div class="mb-16 card p-8 text-center bg-linear-to-br from-mystic-50 to-bermuda-50 dark:from-mystic-900 dark:to-mystic-950">
                         <span class="text-4xl text-mystic-400 mb-4 block">
                             <i class="fa-solid fa-sharp fa-books" />
                         </span>
                         <h2 class="text-xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-2">
-                            No Upcoming Meetings Scheduled
+                            No Upcoming Sessions Scheduled
                         </h2>
                         <p class="text-mystic-600 dark:text-mystic-400 mb-4">
                             Check back soon! We typically meet monthly on
                             Saturdays.
                         </p>
                         <a
-                            href="/themes"
+                            href="/about"
                             class="text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-700 dark:hover:text-bermuda-300 font-medium"
                         >
-                            Browse themes in the meantime{" "}
+                            Learn how our club works{" "}
                             <i class="fa-solid fa-sharp fa-arrow-right" />
                         </a>
                     </div>
                 )
             }
 
-            <!-- Past Meetings -->
+            <!-- Past Sessions -->
             {
-                pastMeetings.length > 0 && (
+                pastSessions.length > 0 && (
                     <div>
                         <h2 class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-6 flex items-center gap-3">
                             <span class="w-10 h-10 bg-mystic-200 dark:bg-mystic-800 text-mystic-600 dark:text-mystic-400 rounded-xl flex items-center justify-center">
                                 <i class="fa-solid fa-sharp fa-book" />
                             </span>
-                            Past Meetings
+                            Past Sessions
                         </h2>
-                        <div class="space-y-4">
-                            {pastMeetings.map((meeting) => (
-                                <MeetingCard
-                                    meeting={meeting}
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {pastSessions.map((session) => (
+                                <SessionCard
+                                    session={session}
                                     variant="compact"
                                 />
                             ))}
@@ -119,9 +125,35 @@ const pastMeetings = meetings
                 )
             }
 
-            <!-- Location Info -->
+            <!-- Empty State -->
+            {
+                sessions.length === 0 && (
+                    <div class="text-center py-12">
+                        <span class="text-6xl text-mystic-400 mb-4 block">
+                            <i class="fa-solid fa-sharp fa-books" />
+                        </span>
+                        <h2 class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-2">
+                            No sessions yet!
+                        </h2>
+                        <p class="text-mystic-600 dark:text-mystic-400 mb-6">
+                            Check back soon for our upcoming sessions.
+                        </p>
+                        <a href="/submit" class="btn btn-primary">
+                            Submit a Theme Idea
+                        </a>
+                    </div>
+                )
+            }
+        </div>
+    </section>
+
+    <!-- Location Info -->
+    <section
+        class="py-12 bg-mystic-50 dark:bg-mystic-900 transition-colors duration-300"
+    >
+        <div class="max-w-4xl mx-auto px-4">
             <div
-                class="mt-16 card p-8 bg-linear-to-br from-bermuda-50 to-lantern-50 dark:from-mystic-900 dark:to-mystic-950"
+                class="card p-8 bg-linear-to-br from-bermuda-50 to-lantern-50 dark:from-mystic-800 dark:to-mystic-950"
             >
                 <h3
                     class="text-xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-4 flex items-center gap-2"
@@ -169,20 +201,19 @@ const pastMeetings = meetings
         </div>
     </section>
 
-    <!-- CTA -->
-    <section
-        class="py-12 bg-mystic-100 dark:bg-mystic-900 transition-colors duration-300"
-    >
+    <!-- CTA Section -->
+    <section class="py-12 transition-colors duration-300">
         <div class="max-w-3xl mx-auto px-4 text-center">
             <h2
                 class="text-2xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-4"
             >
-                First Time?
+                Have a Theme Idea?
             </h2>
             <p class="text-mystic-600 dark:text-mystic-400 mb-6">
-                Learn how our theme-based book club works—no homework required!
+                We're always looking for fresh themes. "Cozy Apocalypse"?
+                "Unreliable Narrators"? "Space Opera"? Submit your idea!
             </p>
-            <a href="/about" class="btn btn-primary">How It Works</a>
+            <a href="/submit" class="btn btn-secondary"> Submit a Theme </a>
         </div>
     </section>
 </Layout>
