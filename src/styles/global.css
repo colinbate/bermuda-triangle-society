@@ -316,6 +316,163 @@
             );
     }
 
+    /* Nautical chart grid pattern */
+    .bg-nautical-grid {
+        background-image:
+            linear-gradient(rgba(20, 184, 166, 0.03) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(20, 184, 166, 0.03) 1px,
+                transparent 1px
+            ),
+            linear-gradient(rgba(20, 184, 166, 0.02) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(20, 184, 166, 0.02) 1px,
+                transparent 1px
+            );
+        background-size:
+            100px 100px,
+            100px 100px,
+            20px 20px,
+            20px 20px;
+    }
+
+    .dark .bg-nautical-grid {
+        background-image:
+            linear-gradient(rgba(20, 184, 166, 0.06) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(20, 184, 166, 0.06) 1px,
+                transparent 1px
+            ),
+            linear-gradient(rgba(20, 184, 166, 0.03) 1px, transparent 1px),
+            linear-gradient(
+                90deg,
+                rgba(20, 184, 166, 0.03) 1px,
+                transparent 1px
+            );
+        background-size:
+            100px 100px,
+            100px 100px,
+            20px 20px,
+            20px 20px;
+    }
+
+    /* Eldritch tentacle curl pattern */
+    .bg-tentacles {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath d='M20,180 Q40,140 30,100 Q20,60 50,40' stroke='%23a855f7' stroke-width='1' fill='none' opacity='0.04'/%3E%3Cpath d='M180,20 Q160,60 170,100 Q180,140 150,160' stroke='%230d9488' stroke-width='1' fill='none' opacity='0.04'/%3E%3C/svg%3E");
+        background-size: 200px 200px;
+    }
+
+    .dark .bg-tentacles {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath d='M20,180 Q40,140 30,100 Q20,60 50,40' stroke='%23a855f7' stroke-width='1' fill='none' opacity='0.08'/%3E%3Cpath d='M180,20 Q160,60 170,100 Q180,140 150,160' stroke='%2314b8a6' stroke-width='1' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+        background-size: 200px 200px;
+    }
+
+    /* Compass rose accent */
+    .bg-compass {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Ccircle cx='150' cy='150' r='80' stroke='%230d9488' stroke-width='0.5' fill='none' opacity='0.08'/%3E%3Ccircle cx='150' cy='150' r='60' stroke='%230d9488' stroke-width='0.5' fill='none' opacity='0.06'/%3E%3Cpath d='M150,70 L150,230 M70,150 L230,150' stroke='%230d9488' stroke-width='0.5' opacity='0.08'/%3E%3Cpath d='M93,93 L207,207 M207,93 L93,207' stroke='%230d9488' stroke-width='0.3' opacity='0.06'/%3E%3Cpolygon points='150,75 145,150 150,145 155,150' fill='%230d9488' opacity='0.1'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 300px 300px;
+    }
+
+    /* Arcane triangle pattern */
+    .bg-arcane-triangles {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cpath d='M60,10 L110,95 L10,95 Z' stroke='%23a855f7' stroke-width='0.5' fill='none' opacity='0.05'/%3E%3Ccircle cx='60' cy='65' r='3' stroke='%23fbbf24' stroke-width='0.5' fill='none' opacity='0.08'/%3E%3C/svg%3E");
+        background-size: 120px 104px;
+    }
+
+    .dark .bg-arcane-triangles {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cpath d='M60,10 L110,95 L10,95 Z' stroke='%23c084fc' stroke-width='0.5' fill='none' opacity='0.08'/%3E%3Ccircle cx='60' cy='65' r='3' stroke='%23fbbf24' stroke-width='0.5' fill='none' opacity='0.1'/%3E%3C/svg%3E");
+        background-size: 120px 104px;
+    }
+
+    /* Eldritch eye subtle pattern */
+    .bg-eldritch-eyes {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cellipse cx='40' cy='40' rx='12' ry='6' stroke='%23581c87' stroke-width='0.5' fill='none' opacity='0.04'/%3E%3Ccircle cx='40' cy='40' r='2' fill='%23581c87' opacity='0.04'/%3E%3C/svg%3E");
+        background-size: 80px 80px;
+    }
+
+    .dark .bg-eldritch-eyes {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cellipse cx='40' cy='40' rx='12' ry='6' stroke='%23c084fc' stroke-width='0.5' fill='none' opacity='0.06'/%3E%3Ccircle cx='40' cy='40' r='2' fill='%23c084fc' opacity='0.06'/%3E%3C/svg%3E");
+        background-size: 80px 80px;
+    }
+
+    /* Navigation dotted lines */
+    .bg-nav-lines {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath d='M50,350 Q150,200 350,50' stroke='%230d9488' stroke-width='1' stroke-dasharray='4,8' fill='none' opacity='0.08'/%3E%3Ccircle cx='50' cy='350' r='4' fill='%230d9488' opacity='0.1'/%3E%3Ccircle cx='350' cy='50' r='4' fill='%230d9488' opacity='0.1'/%3E%3C/svg%3E");
+        background-size: 400px 400px;
+    }
+
+    .dark .bg-nav-lines {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath d='M50,350 Q150,200 350,50' stroke='%2314b8a6' stroke-width='1' stroke-dasharray='4,8' fill='none' opacity='0.12'/%3E%3Ccircle cx='50' cy='350' r='4' fill='%2314b8a6' opacity='0.15'/%3E%3Ccircle cx='350' cy='50' r='4' fill='%2314b8a6' opacity='0.15'/%3E%3C/svg%3E");
+        background-size: 400px 400px;
+    }
+
+    /* Slow drift animation for decorative elements */
+    .animate-drift {
+        animation: drift 20s ease-in-out infinite;
+    }
+
+    .animate-drift-reverse {
+        animation: drift-reverse 25s ease-in-out infinite;
+    }
+
+    @keyframes drift {
+        0%,
+        100% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+        25% {
+            transform: translate(10px, -10px) rotate(2deg);
+        }
+        50% {
+            transform: translate(5px, 5px) rotate(-1deg);
+        }
+        75% {
+            transform: translate(-5px, -5px) rotate(1deg);
+        }
+    }
+
+    @keyframes drift-reverse {
+        0%,
+        100% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+        25% {
+            transform: translate(-8px, 8px) rotate(-2deg);
+        }
+        50% {
+            transform: translate(-3px, -8px) rotate(1deg);
+        }
+        75% {
+            transform: translate(6px, 4px) rotate(-1deg);
+        }
+    }
+
+    /* Subtle tentacle wiggle */
+    .animate-tentacle {
+        animation: tentacle-wiggle 8s ease-in-out infinite;
+    }
+
+    @keyframes tentacle-wiggle {
+        0%,
+        100% {
+            transform: scaleX(1) rotate(0deg);
+        }
+        25% {
+            transform: scaleX(1.02) rotate(1deg);
+        }
+        50% {
+            transform: scaleX(0.98) rotate(-1deg);
+        }
+        75% {
+            transform: scaleX(1.01) rotate(0.5deg);
+        }
+    }
+
     /* Line clamp utilities */
     .line-clamp-2 {
         display: -webkit-box;

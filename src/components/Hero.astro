@@ -21,6 +21,128 @@ const {
     <!-- Starry background -->
     <div class="absolute inset-0 bg-stars opacity-50" aria-hidden="true"></div>
 
+    <!-- Subtle nautical grid overlay -->
+    <div
+        class="absolute inset-0 origin-center scale-125 opacity-[0.3] pointer-events-none rotate-6"
+        aria-hidden="true"
+    >
+        <svg class="w-[120%] h-[120%]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern
+                    id="hero-grid"
+                    width="80"
+                    height="80"
+                    patternUnits="userSpaceOnUse"
+                >
+                    <path
+                        d="M 80 0 L 0 0 0 80"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="0.5"
+                        class="text-bermuda-300"></path>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#hero-grid)"></rect>
+        </svg>
+    </div>
+
+    <!-- Compass rose in background -->
+    <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-150 opacity-[0.025] pointer-events-none"
+        aria-hidden="true"
+    >
+        <svg viewBox="0 0 200 200" class="w-full h-full text-bermuda-300">
+            <circle
+                cx="100"
+                cy="100"
+                r="95"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.5"></circle>
+            <circle
+                cx="100"
+                cy="100"
+                r="75"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.3"></circle>
+            <circle
+                cx="100"
+                cy="100"
+                r="55"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="0.3"></circle>
+            <path d="M100 5 L103 100 L100 195 L97 100 Z" fill="currentColor"
+            ></path>
+            <path d="M5 100 L100 97 L195 100 L100 103 Z" fill="currentColor"
+            ></path>
+            <path
+                d="M20 20 L102 98 L180 180 L98 102 Z"
+                fill="currentColor"
+                opacity="0.5"></path>
+            <path
+                d="M180 20 L102 98 L20 180 L98 102 Z"
+                fill="currentColor"
+                opacity="0.5"></path>
+        </svg>
+    </div>
+
+    <!-- Subtle tentacle creeping from bottom left -->
+    <div
+        class="absolute -bottom-8 -left-8 w-64 h-64 opacity-[0.06] pointer-events-none"
+        aria-hidden="true"
+    >
+        <svg viewBox="0 0 100 100" class="w-full h-full text-mystic-400">
+            <path
+                d="M0 100 Q15 85 20 70 Q25 55 18 40 Q12 28 20 15"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"></path>
+            <path
+                d="M20 100 Q30 88 38 75 Q45 62 40 48 Q36 38 42 28"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"></path>
+            <path
+                d="M40 100 Q48 92 55 82 Q62 72 58 60"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"></path>
+            <circle cx="20" cy="15" r="2.5" fill="currentColor"></circle>
+            <circle cx="42" cy="28" r="2" fill="currentColor"></circle>
+            <circle cx="58" cy="60" r="1.5" fill="currentColor"></circle>
+        </svg>
+    </div>
+
+    <!-- Eldritch eye watching from top right -->
+    <div
+        class="absolute top-16 right-8 md:right-16 w-16 h-10 opacity-[0.04] pointer-events-none"
+        aria-hidden="true"
+    >
+        <svg viewBox="0 0 80 48" class="w-full h-full text-lantern-300">
+            <ellipse
+                cx="40"
+                cy="24"
+                rx="36"
+                ry="20"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"></ellipse>
+            <circle
+                cx="40"
+                cy="24"
+                r="10"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1"></circle>
+            <circle cx="40" cy="24" r="4" fill="currentColor"></circle>
+        </svg>
+    </div>
+
     <!-- Floating particles -->
     <div
         class="absolute inset-0 overflow-hidden pointer-events-none"
@@ -58,13 +180,32 @@ const {
             <div class="text-center md:text-left">
                 <!-- Triangle icon -->
                 <div
-                    class="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-linear-to-br from-mystic-500/30 to-bermuda-500/30 border border-mystic-400/20 backdrop-blur-sm"
+                    class="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-2xl bg-linear-to-br from-mystic-500/30 to-bermuda-500/30 border border-mystic-400/20 backdrop-blur-sm relative"
                 >
                     <span
                         class="text-3xl text-mystic-200 animate-float relative top-1"
                     >
                         <i class="fa-solid fa-sharp fa-sharp fa-triangle"></i>
                     </span>
+                    <!-- Tiny arcane glow around triangle -->
+                    <div
+                        class="absolute inset-0 rounded-2xl opacity-30 pointer-events-none"
+                        aria-hidden="true"
+                    >
+                        <svg
+                            viewBox="0 0 64 64"
+                            class="w-full h-full text-bermuda-400"
+                        >
+                            <circle
+                                cx="32"
+                                cy="32"
+                                r="28"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="0.5"
+                                stroke-dasharray="2 4"></circle>
+                        </svg>
+                    </div>
                 </div>
 
                 <h1
@@ -135,6 +276,13 @@ const {
                             aria-hidden="true"
                         >
                             <i class="fa-solid fa-sharp fa-sparkle text-lg" />
+                        </div>
+                        {/* Nautical coordinate marker */}
+                        <div
+                            class="absolute -bottom-6 right-4 text-[10px] font-mono text-mystic-500/40"
+                            aria-hidden="true"
+                        >
+                            32°17'35"N 64°47'11"W
                         </div>
                     </div>
                 )
