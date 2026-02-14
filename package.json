@@ -13,12 +13,13 @@
     "@astrojs/svelte": "^7.2.5",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
+    "ics": "^3.8.1",
     "svelte": "^5.50.2",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@awesome.me/kit-70c455ffa2": "^1.0.7",
+    "@awesome.me/kit-70c455ffa2": "^1.0.17",
     "wrangler": "^4.65.0"
   }
 }

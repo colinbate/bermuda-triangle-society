@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import StarterList from "../../components/StarterList.astro";
+import Time from "../../components/Time.svelte";
 import { getCollection } from "astro:content";
 import { render } from "astro:content";
 
@@ -17,7 +18,8 @@ const {
     title,
     status,
     date,
-    time,
+    start,
+    duration,
     locationId,
     themeTitle,
     themeSummary,
@@ -49,7 +51,7 @@ const isPast = date < new Date();
 // Status configuration
 const statusConfig = {
     current: {
-        label: "Current Session",
+        label: "Next Session",
         classes: "bg-linear-to-r from-mystic-500 to-bermuda-500 text-white",
         icon: "fa-solid fa-sharp fa-sparkles",
     },
@@ -136,14 +138,14 @@ const config = statusConfig[status];
                         <strong class="text-white">{formattedDate}</strong>
                     </span>
                 </div>
-                {
-                    time && (
-                        <div class="flex items-center gap-2">
-                            <i class="fa-solid fa-sharp fa-clock text-lantern-400" />
-                            <span>{time}</span>
-                        </div>
-                    )
-                }
+
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-sharp fa-clock text-lantern-400"></i>
+                    <div>
+                        <Time start={start} duration={duration} />
+                    </div>
+                </div>
+
                 {
                     location && (
                         <div class="flex items-center gap-2">
@@ -153,6 +155,20 @@ const config = statusConfig[status];
                     )
                 }
             </div>
+
+            {
+                status === "current" && (
+                    <div>
+                        <a
+                            href={`/sessions/${session.id}.ics`}
+                            class="btn btn-link gap-2 px-3 py-2 mt-4 text-sm"
+                        >
+                            <i class="fa-solid fa-sharp fa-calendar-arrow-down" />{" "}
+                            Download calendar invite
+                        </a>
+                    </div>
+                )
+            }
 
             <!-- Tags -->
             {
@@ -179,22 +195,34 @@ const config = statusConfig[status];
                         <Content />
                     </div>
 
-                    <!-- CTA for current/upcoming sessions -->
+                    <!-- What to bring -->
                     {
-                        (status === "current" || status === "upcoming") && (
-                            <div class="mt-12 p-6 bg-linear-to-r from-mystic-100 to-bermuda-100 dark:from-mystic-800 dark:to-mystic-950 rounded-2xl border border-mystic-200 dark:border-mystic-700">
-                                <h3 class="text-lg font-display font-semibold text-mystic-900 dark:text-mystic-100 mb-2 flex items-center gap-2">
+                        !isPast && (
+                            <div class="card p-6 mt-12">
+                                <h3 class="text-lg font-display font-semibold mb-3 flex items-center gap-2">
                                     <span class="text-lantern-500">
                                         <i class="fa-solid fa-sharp fa-sparkles" />
                                     </span>
-                                    Want to participate?
+                                    What to Bring
                                 </h3>
-                                <p class="text-mystic-600 dark:text-mystic-400 mb-4">
-                                    Grab a book or audiobook that fits this
-                                    theme and bring it to the meeting! Share a
-                                    quick pitch about what you read—did it work
-                                    for you? Who would love it?
-                                </p>
+                                <ul class="text-sm text-mystic-700 mb-6 dark:text-mystic-200 space-y-2">
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-lantern-500">•</span>A
+                                        book that fits the theme (optional!)
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-lantern-500">•</span>A
+                                        2-3 minute pitch if sharing
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-lantern-500">•</span>
+                                        Theme ideas for future sessions
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <span class="text-lantern-500">•</span>
+                                        Your enthusiasm (required!)
+                                    </li>
+                                </ul>
                                 <a
                                     href="/about"
                                     class="inline-flex items-center gap-2 text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 font-medium transition-colors"
@@ -273,38 +301,6 @@ const config = statusConfig[status];
                         )
                     }
 
-                    <!-- What to Bring -->
-                    {
-                        !isPast && (
-                            <div class="card p-6 mt-6">
-                                <h3 class="text-lg font-display font-semibold mb-3 flex items-center gap-2">
-                                    <span class="text-lantern-500">
-                                        <i class="fa-solid fa-sharp fa-sparkles" />
-                                    </span>
-                                    What to Bring
-                                </h3>
-                                <ul class="text-sm text-mystic-700 dark:text-mystic-200 space-y-2">
-                                    <li class="flex items-start gap-2">
-                                        <span class="text-lantern-500">•</span>A
-                                        book that fits the theme (optional!)
-                                    </li>
-                                    <li class="flex items-start gap-2">
-                                        <span class="text-lantern-500">•</span>A
-                                        2-3 minute pitch if sharing
-                                    </li>
-                                    <li class="flex items-start gap-2">
-                                        <span class="text-lantern-500">•</span>
-                                        Theme ideas for future sessions
-                                    </li>
-                                    <li class="flex items-start gap-2">
-                                        <span class="text-lantern-500">•</span>
-                                        Your enthusiasm (required!)
-                                    </li>
-                                </ul>
-                            </div>
-                        )
-                    }
-
                     <!-- Quick links -->
                     <div
                         class="mt-6 p-4 bg-white dark:bg-mystic-950 rounded-xl border border-mystic-100 dark:border-mystic-800"
@@ -345,6 +341,17 @@ const config = statusConfig[status];
                                         class="fa-solid fa-sharp fa-circle-info w-4"
                                     ></i>
                                     How it works
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="/find-books"
+                                    class="text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 transition-colors flex items-center gap-2"
+                                >
+                                    <i
+                                        class="fa-solid fa-sharp fa-book-open-reader w-4"
+                                    ></i>
+                                    Find books
                                 </a>
                             </li>
                         </ul>

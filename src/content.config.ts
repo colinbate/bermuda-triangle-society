@@ -17,7 +17,8 @@ const sessions = defineCollection({
     title: z.string(),
     status: z.enum(["current", "upcoming", "past"]),
     date: z.date(),
-    time: z.string().optional(),
+    start: z.date(),
+    duration: z.number(),
     locationId: z.string().optional(),
     themeTitle: z.string(),
     themeSummary: z.string(),
@@ -30,6 +31,7 @@ const sessions = defineCollection({
           format: z.array(z.string()).optional(),
           source: z.string().optional(),
           note: z.string().optional(),
+          url: z.string().url().optional(),
         }),
       )
       .optional(),

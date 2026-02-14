@@ -7,6 +7,7 @@ interface Book {
     format?: string[];
     source?: string;
     note?: string;
+    url?: string;
 }
 
 interface Props {
@@ -26,6 +27,8 @@ const sourceColors: Record<string, string> = {
     Library:
         "bg-bermuda-100 dark:bg-bermuda-900/50 text-bermuda-700 dark:text-bermuda-300",
     Libby: "bg-lantern-100 dark:bg-lantern-900/50 text-lantern-700 dark:text-lantern-300",
+    Everand: "bg-lantern-200 text-black",
+    KU: "bg-lantern-600 text-white",
     Other: "bg-mystic-100 dark:bg-mystic-800 text-mystic-700 dark:text-mystic-300",
 };
 ---
@@ -44,72 +47,155 @@ const sourceColors: Record<string, string> = {
                 {books.map((book) => (
                     <li
                         class:list={[
-                            "group bg-white dark:bg-mystic-950 rounded-xl border border-mystic-100 dark:border-mystic-700 hover:border-mystic-200 dark:hover:border-mystic-600 hover:shadow-md dark:hover:shadow-mystic-900/50 transition-all duration-200",
+                            "group bg-white dark:bg-mystic-950 relative rounded-xl border border-mystic-100 dark:border-mystic-700 transition-all duration-200",
                             compact ? "p-3" : "p-4",
+                            book.url &&
+                                "hover:border-mystic-200 dark:hover:border-mystic-600 hover:shadow-md dark:hover:shadow-mystic-900/50",
                         ]}
                     >
-                        <div class="flex flex-col gap-2">
-                            {/* Title and Author */}
-                            <div>
-                                <h4
-                                    class:list={[
-                                        "font-semibold text-mystic-900 dark:text-mystic-100 group-hover:text-mystic-700 dark:group-hover:text-mystic-300 transition-colors",
-                                        compact && "text-sm",
-                                    ]}
-                                >
-                                    {book.title}
-                                </h4>
-                                <p class="text-sm text-mystic-600 dark:text-mystic-400">
-                                    by {book.author}
-                                </p>
-                            </div>
-
-                            {/* Formats and Source */}
-                            <div class="flex flex-wrap items-center gap-2">
-                                {book.format && book.format.length > 0 && (
-                                    <div class="flex gap-1">
-                                        {book.format.map((fmt) => (
-                                            <span
-                                                class="inline-flex items-center gap-1 px-2 py-0.5 bg-mystic-50 dark:bg-mystic-700 text-mystic-600 dark:text-mystic-300 text-xs rounded-full"
-                                                title={fmt}
-                                            >
+                        {book.url ? (
+                            <a
+                                href={book.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="block"
+                            >
+                                <div class="flex flex-col gap-2">
+                                    {/* Title and Author */}
+                                    <div>
+                                        <h4
+                                            class:list={[
+                                                "font-semibold text-mystic-900 dark:text-mystic-100 transition-colors",
+                                                compact && "text-sm",
+                                                book.url &&
+                                                    "group-hover:text-bermuda-600 dark:group-hover:text-bermuda-400",
+                                            ]}
+                                        >
+                                            {book.title}
+                                            {book.url && (
                                                 <i
-                                                    class={
-                                                        formatIcons[
-                                                            fmt.toLowerCase()
-                                                        ] ||
-                                                        "fa-solid fa-sharp fa-file"
-                                                    }
+                                                    class="fa-solid fa-sharp fa-arrow-up-right-from-square text-xs ml-1 opacity-50 absolute top-1 right-1"
                                                     aria-hidden="true"
                                                 />
-                                                <span class="sr-only sm:not-sr-only">
-                                                    {fmt}
-                                                </span>
-                                            </span>
-                                        ))}
+                                            )}
+                                        </h4>
+                                        <p class="text-sm text-mystic-600 dark:text-mystic-400">
+                                            by {book.author}
+                                        </p>
                                     </div>
-                                )}
 
-                                {book.source && (
-                                    <span
+                                    {/* Formats and Source */}
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        {book.format &&
+                                            book.format.length > 0 && (
+                                                <div class="flex gap-1">
+                                                    {book.format.map((fmt) => (
+                                                        <span
+                                                            class="inline-flex items-center gap-1 px-2 py-0.5 bg-mystic-50 dark:bg-mystic-700 text-mystic-600 dark:text-mystic-300 text-xs rounded-full"
+                                                            title={fmt}
+                                                        >
+                                                            <i
+                                                                class={
+                                                                    formatIcons[
+                                                                        fmt.toLowerCase()
+                                                                    ] ||
+                                                                    "fa-solid fa-sharp fa-file"
+                                                                }
+                                                                aria-hidden="true"
+                                                            />
+                                                            <span class="sr-only sm:not-sr-only">
+                                                                {fmt}
+                                                            </span>
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+
+                                        {book.source && (
+                                            <span
+                                                class:list={[
+                                                    "px-2 py-0.5 text-xs font-medium rounded-full",
+                                                    sourceColors[book.source] ||
+                                                        sourceColors.Other,
+                                                ]}
+                                            >
+                                                {book.source}
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    {/* Note */}
+                                    {book.note && !compact && (
+                                        <p class="text-sm text-mystic-500 dark:text-mystic-400 italic border-l-2 border-lantern-300 dark:border-lantern-600 pl-3 mt-1">
+                                            {book.note}
+                                        </p>
+                                    )}
+                                </div>
+                            </a>
+                        ) : (
+                            <div class="flex flex-col gap-2">
+                                {/* Title and Author */}
+                                <div>
+                                    <h4
                                         class:list={[
-                                            "px-2 py-0.5 text-xs font-medium rounded-full",
-                                            sourceColors[book.source] ||
-                                                sourceColors.Other,
+                                            "font-semibold text-mystic-900 dark:text-mystic-100",
+                                            compact && "text-sm",
                                         ]}
                                     >
-                                        {book.source}
-                                    </span>
+                                        {book.title}
+                                    </h4>
+                                    <p class="text-sm text-mystic-600 dark:text-mystic-400">
+                                        by {book.author}
+                                    </p>
+                                </div>
+
+                                {/* Formats and Source */}
+                                <div class="flex flex-wrap items-center gap-2">
+                                    {book.format && book.format.length > 0 && (
+                                        <div class="flex gap-1">
+                                            {book.format.map((fmt) => (
+                                                <span
+                                                    class="inline-flex items-center gap-1 px-2 py-0.5 bg-mystic-50 dark:bg-mystic-700 text-mystic-600 dark:text-mystic-300 text-xs rounded-full"
+                                                    title={fmt}
+                                                >
+                                                    <i
+                                                        class={
+                                                            formatIcons[
+                                                                fmt.toLowerCase()
+                                                            ] ||
+                                                            "fa-solid fa-sharp fa-file"
+                                                        }
+                                                        aria-hidden="true"
+                                                    />
+                                                    <span class="sr-only sm:not-sr-only">
+                                                        {fmt}
+                                                    </span>
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {book.source && (
+                                        <span
+                                            class:list={[
+                                                "px-2 py-0.5 text-xs font-medium rounded-full",
+                                                sourceColors[book.source] ||
+                                                    sourceColors.Other,
+                                            ]}
+                                        >
+                                            {book.source}
+                                        </span>
+                                    )}
+                                </div>
+
+                                {/* Note */}
+                                {book.note && !compact && (
+                                    <p class="text-sm text-mystic-500 dark:text-mystic-400 italic border-l-2 border-lantern-300 dark:border-lantern-600 pl-3 mt-1">
+                                        {book.note}
+                                    </p>
                                 )}
                             </div>
-
-                            {/* Note */}
-                            {book.note && !compact && (
-                                <p class="text-sm text-mystic-500 dark:text-mystic-400 italic border-l-2 border-lantern-300 dark:border-lantern-600 pl-3 mt-1">
-                                    {book.note}
-                                </p>
-                            )}
-                        </div>
+                        )}
                     </li>
                 ))}
             </ul>

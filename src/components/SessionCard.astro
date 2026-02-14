@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import TagPill from "./TagPill.astro";
+import Time from "./Time.svelte";
 
 interface Props {
     session: CollectionEntry<"sessions">;
@@ -8,8 +9,16 @@ interface Props {
 }
 
 const { session, variant = "default" } = Astro.props;
-const { status, date, time, themeTitle, themeSummary, tags, starterList } =
-    session.data;
+const {
+    status,
+    date,
+    start,
+    duration,
+    themeTitle,
+    themeSummary,
+    tags,
+    starterList,
+} = session.data;
 
 // Format the date nicely
 const formattedDate = date.toLocaleDateString("en-US", {
@@ -26,7 +35,7 @@ const isPast = date < new Date();
 // Status configuration
 const statusConfig = {
     current: {
-        label: "Current",
+        label: "Up Next",
         classes: "bg-linear-to-r from-mystic-500 to-bermuda-500 text-white",
         icon: "fa-solid fa-sharp fa-sparkles",
     },
@@ -67,11 +76,10 @@ const config = statusConfig[status];
                         <h3 class="font-display font-semibold text-mystic-900 dark:text-mystic-100 group-hover:text-mystic-700 dark:group-hover:text-mystic-300 transition-colors ml-7">
                             {themeTitle}
                         </h3>
-                        {time && (
-                            <p class="text-sm text-mystic-500 dark:text-mystic-500 ml-7">
-                                {time}
-                            </p>
-                        )}
+
+                        <p class="text-sm text-mystic-500 dark:text-mystic-500 ml-7">
+                            <Time start={start} duration={duration} />
+                        </p>
                     </div>
                     <span
                         class:list={[
@@ -134,14 +142,12 @@ const config = statusConfig[status];
 
                     {/* Details */}
                     <div class="space-y-2 text-sm mb-4">
-                        {time && (
-                            <div class="flex items-center gap-2 text-mystic-600 dark:text-mystic-300">
-                                <span class="text-mystic-400 dark:text-mystic-500 w-4">
-                                    <i class="fa-solid fa-sharp fa-clock" />
-                                </span>
-                                <span>{time}</span>
-                            </div>
-                        )}
+                        <div class="flex items-center gap-2 text-mystic-600 dark:text-mystic-300">
+                            <span class="text-mystic-400 dark:text-mystic-500 w-4">
+                                <i class="fa-solid fa-sharp fa-clock" />
+                            </span>
+                            <Time start={start} duration={duration} />
+                        </div>
 
                         {starterList && starterList.length > 0 && (
                             <div class="flex items-center gap-2 text-mystic-600 dark:text-mystic-300">

@@ -146,7 +146,7 @@
     }
 
     .prose ol {
-        @apply list-decimal pl-6 mb-4 space-y-2;
+        @apply list-decimal pl-6 mb-4 space-y-2.5;
     }
 
     .prose li {
@@ -179,6 +179,10 @@
 
     .dark .btn-secondary {
         @apply bg-lantern-500 hover:bg-lantern-400;
+    }
+
+    .btn-link {
+        @apply bg-bermuda-500 text-white hover:bg-bermuda-600 hover:shadow-lg hover:shadow-bermuda-500/25;
     }
 
     .btn-outline {
