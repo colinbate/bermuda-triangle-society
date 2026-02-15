@@ -1,10 +1,13 @@
 <script lang="ts">
+    import type { ClassValue } from "svelte/elements";
+
     interface Props {
         start: Date;
         duration: number;
+        class?: ClassValue;
     }
 
-    const { start, duration }: Props = $props();
+    const { start, duration, class: className }: Props = $props();
 
     const end = $derived(new Date(start.getTime() + duration * 60_000));
 
@@ -17,4 +20,4 @@
     }
 </script>
 
-<div>{fmt(start)} &ndash; {fmt(end)}</div>
+<span class={className}>{fmt(start)} &ndash; {fmt(end)}</span>

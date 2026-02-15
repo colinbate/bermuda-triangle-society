@@ -39,30 +39,13 @@ function formatDate(date: Date): string {
 <Layout>
   <!-- Hero Section -->
   <Hero>
-    <Fragment slot="primary-cta">
-      {currentSession ? (
-        <a href={`/sessions/${currentSession.id}`} class="btn btn-primary">
-          <span>See Next Session</span>
-          <i class="fa-solid fa-sharp fa-arrow-right ml-2"></i>
-        </a>
-      ) : (
-        <a href="/sessions" class="btn btn-primary">
-          <span>Explore Sessions</span>
-          <i class="fa-solid fa-sharp fa-arrow-right ml-2"></i>
-        </a>
-      )}
-    </Fragment>
-
     <Fragment slot="meeting-teaser">
-      {nextSession && (
-        <div class="mt-8 inline-flex items-center gap-3 px-4 py-2 bg-mystic-800/50 rounded-full border border-mystic-600/30 backdrop-blur-sm">
-          <span class="text-lantern-400 animate-pulse"><i class="fa-solid fa-sharp fa-sparkle"></i></span>
-          <div class="text-sm text-mystic-200 flex items-center gap-2">
-              Next session: <strong class="text-white">{formatDate(nextSession.data.date)}</strong>
-              <a href={`/sessions/${nextSession.id}.ics`}><i class="fa-solid fa-sharp fa-calendar-arrow-down text-bermuda-500 text-lg"></i></a>
-          </div>
+      {nextSession &&
+        <div class="mt-8 isolate">
+            <div class="relative z-10 top-2 left-2 bg-lantern-400 text-black dark:bg-lantern-700 dark:text-white rounded-full px-2 w-max">Next Session</div>
+          <SessionCard session={nextSession} variant='compact' showLink />
         </div>
-      )}
+      }
     </Fragment>
   </Hero>
 
@@ -99,25 +82,11 @@ function formatDate(date: Date): string {
           How It Works
         </h2>
         <p class="text-lg text-mystic-600 dark:text-mystic-400 max-w-2xl mx-auto">
-          No assigned reading. No pressure. Just good conversations about books we love.
+          For every session there is a theme. Just read something that fits that theme.
         </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Step 1 -->
-        <div class="relative text-center group">
-          <div class="w-16 h-16 mx-auto mb-4 bg-linear-to-br from-mystic-500 to-mystic-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-mystic-500/20 group-hover:scale-110 transition-transform">
-            <i class="fa-solid fa-sharp fa-bullseye"></i>
-          </div>
-          <h3 class="text-xl font-display font-semibold text-mystic-900 dark:text-mystic-100 mb-2">
-            Vote on a Theme
-          </h3>
-          <p class="text-mystic-600 dark:text-mystic-400">
-            Each month, members vote on a theme like "Lost at Sea" or "Portal Fantasy." Anyone can submit theme ideas!
-          </p>
-        </div>
-
-        <!-- Step 2 -->
         <div class="relative text-center group">
           <!-- Mysterious eye decoration -->
           <div class="absolute -top-2 right-0 w-8 h-8 opacity-[0.07] dark:opacity-[0.1] pointer-events-none" aria-hidden="true">
@@ -136,9 +105,12 @@ function formatDate(date: Date): string {
           <p class="text-mystic-600 dark:text-mystic-400">
             Pick <em>any</em> book that fits the theme—or just come to listen. We share a starter list to help you choose.
           </p>
+          <a href="/find-books" class="inline-flex mt-4 items-center gap-2 text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-800 dark:hover:text-bermuda-200 font-medium transition-colors">
+              Find books
+            <i class="fa-solid fa-sharp fa-arrow-right"></i>
+          </a>
         </div>
 
-        <!-- Step 3 -->
         <div class="relative text-center group">
           <!-- Arcane triangle decoration -->
           <div class="absolute -bottom-2 -right-2 w-10 h-10 opacity-[0.06] dark:opacity-[0.08] pointer-events-none" aria-hidden="true">
@@ -156,15 +128,29 @@ function formatDate(date: Date): string {
           <p class="text-mystic-600 dark:text-mystic-400">
             Give a quick pitch at the meeting: what's it about, did it work for you, and who would love it?
           </p>
+          <a href="/about" class="inline-flex mt-4 items-center gap-2 text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-800 dark:hover:text-bermuda-200 font-medium transition-colors">
+              Learn more about meetings
+            <i class="fa-solid fa-sharp fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="relative text-center group">
+          <div class="w-16 h-16 mx-auto mb-4 bg-linear-to-br from-mystic-500 to-mystic-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg shadow-mystic-500/20 group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-sharp fa-check-to-slot"></i>
+          </div>
+          <h3 class="text-xl font-display font-semibold text-mystic-900 dark:text-mystic-100 mb-2">
+            Vote on a Theme
+          </h3>
+          <p class="text-mystic-600 dark:text-mystic-400">
+            Each month, members vote on a theme like "Lost at Sea" or "Portal Fantasy." Anyone can submit theme ideas!
+          </p>
+          <a href="/submit" class="inline-flex mt-4 items-center gap-2 text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-800 dark:hover:text-bermuda-200 font-medium transition-colors">
+              Suggest a theme
+            <i class="fa-solid fa-sharp fa-arrow-right"></i>
+          </a>
         </div>
       </div>
 
-      <div class="text-center mt-10">
-        <a href="/about" class="inline-flex items-center gap-2 text-mystic-600 dark:text-mystic-400 hover:text-mystic-800 dark:hover:text-mystic-200 font-medium transition-colors">
-          Learn more about sessions
-          <i class="fa-solid fa-sharp fa-arrow-right"></i>
-        </a>
-      </div>
     </div>
   </section>
 

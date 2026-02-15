@@ -220,27 +220,6 @@ const {
                     {subtitle}
                 </p>
 
-                <!-- CTA Buttons -->
-                <div
-                    class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
-                >
-                    <slot name="primary-cta">
-                        <a href="/sessions" class="btn btn-primary">
-                            <span>Explore Sessions</span>
-                            <i class="fa-solid fa-sharp fa-arrow-right ml-2"
-                            ></i>
-                        </a>
-                    </slot>
-                    <slot name="secondary-cta">
-                        <a
-                            href="/submit"
-                            class="btn btn-outline border-mystic-400 text-mystic-100 hover:bg-mystic-700 hover:border-mystic-600"
-                        >
-                            Submit a Theme
-                        </a>
-                    </slot>
-                </div>
-
                 <!-- Next Meeting Teaser -->
                 <slot name="meeting-teaser" />
             </div>

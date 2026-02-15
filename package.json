@@ -19,7 +19,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@awesome.me/kit-70c455ffa2": "^1.0.17",
+    "@awesome.me/kit-70c455ffa2": "^1.0.18",
     "wrangler": "^4.65.0"
   }
 }
