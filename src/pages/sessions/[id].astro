@@ -20,6 +20,7 @@ const {
     date,
     start,
     duration,
+    signupLink,
     locationId,
     themeTitle,
     themeSummary,
@@ -157,15 +158,28 @@ const config = statusConfig[status];
             </div>
 
             {
-                status === "current" && (
-                    <div>
+                status === "current" && !isPast && (
+                    <div class="flex flex-col sm:flex-row gap-3 sm:items-center mt-6">
                         <a
                             href={`/sessions/${session.id}.ics`}
-                            class="btn btn-link gap-2 px-3 py-2 mt-4 text-sm"
+                            class="btn btn-link gap-2 px-3 py-2 text-sm"
                         >
                             <i class="fa-solid fa-sharp fa-calendar-arrow-down" />{" "}
                             Download calendar invite
                         </a>
+
+                        {signupLink && (
+                            <a
+                                href={signupLink}
+                                class="gap-2 px-3 py-2 text-sm text-bermuda-400 hover:text-bermuda-500 font-bold hover:underline"
+                            >
+                                Sign Up To Attend
+                                {signupLink.startsWith("http") && (
+                                    <i class="fa-solid fa-sharp fa-arrow-up-right-from-square" />
+                                )}
+                            </a>
+                        )}
+                        {!signupLink && <p>Check back for signup link</p>}
                     </div>
                 )
             }
@@ -191,7 +205,7 @@ const config = statusConfig[status];
             <div class="grid lg:grid-cols-5 gap-12">
                 <!-- Session Content -->
                 <div class="lg:col-span-3">
-                    <div class="prose prose-mystic max-w-none">
+                    <div class="prose dark:prose-invert max-w-none">
                         <Content />
                     </div>
 

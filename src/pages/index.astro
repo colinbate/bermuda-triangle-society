@@ -226,6 +226,25 @@ function formatDate(date: Date): string {
                 <p class="font-semibold text-mystic-800 dark:text-mystic-200"><Time start={currentSession.data.start} duration={currentSession.data.duration}  /></p>
               </div>
             </div>
+            {currentSession.data.signupLink && (
+            <div class="mt-2 pt-2 flex items-center gap-3 text-mystic-600 dark:text-mystic-400">
+              <span class="text-2xl text-lantern-500"><i class="fa-solid fa-sharp fa-feather"></i></span>
+              <div>
+                <p class="text-sm text-mystic-500 dark:text-mystic-500">Signup</p>
+
+                    <a
+                        href={currentSession.data.signupLink}
+                        class="gap-2 text-sm text-bermuda-400 hover:text-bermuda-500 font-semibold hover:underline"
+                    >
+                        Sign Up To Attend
+                        {currentSession.data.signupLink.startsWith("http") && (
+                            <i class="fa-solid fa-sharp fa-arrow-up-right-from-square" />
+                        )}
+                    </a>
+              </div>
+            </div>
+
+            )}
           </div>
 
           <!-- Starter list preview -->

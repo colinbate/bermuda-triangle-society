@@ -1,0 +1,44 @@
+---
+import Layout from "./Layout.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title} description={frontmatter.description}>
+    <section
+        class="bg-linear-to-b from-mystic-900 to-mystic-800 text-white py-16 md:py-20"
+    >
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            {
+                frontmatter.pretext && (
+                    <span class="inline-flex items-center gap-2 text-lantern-400 text-sm font-semibold uppercase tracking-wide mb-4">
+                        {frontmatter.preicon && (
+                            <i
+                                class:list={[
+                                    "fa-solid fa-sharp",
+                                    frontmatter.preicon,
+                                ]}
+                            />
+                        )}
+                        {frontmatter.pretext}
+                    </span>
+                )
+            }
+            <h1
+                class="text-4xl md:text-5xl font-display font-bold text-white mb-6"
+            >
+                {frontmatter.title}
+            </h1>
+            <p class="text-xl text-mystic-200 max-w-2xl mx-auto">
+                {frontmatter.description}
+            </p>
+        </div>
+    </section>
+    <section
+        class="py-16 md:py-20 transition-colors duration-300 relative overflow-hidden"
+    >
+        <div class="relative max-w-4xl mx-auto px-4 prose dark:prose-invert">
+            <slot />
+        </div>
+    </section>
+</Layout>
