@@ -55,13 +55,15 @@
     }
 
     body {
-        @apply bg-mystic-50 text-mystic-950 antialiased;
+        @apply bg-mystic-50 text-mystic-950 antialiased accent-bermuda-500;
         font-family: var(--font-sans);
+        color-scheme: light;
     }
 
     /* Dark mode body */
     .dark body {
         @apply bg-mystic-950 text-mystic-100;
+        color-scheme: dark;
     }
 
     h1,

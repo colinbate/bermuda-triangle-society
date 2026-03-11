@@ -23,6 +23,7 @@ const sessions = defineCollection({
     themeTitle: z.string(),
     themeSummary: z.string(),
     signupLink: z.string().optional(),
+    rsvpSlug: z.string().optional(),
     tags: z.array(z.string()).optional(),
     starterList: z
       .array(

@@ -1,0 +1,169 @@
+---
+interface Props {
+    rsvpSlug: string;
+    canonicalUrl: string;
+}
+
+const { rsvpSlug, canonicalUrl } = Astro.props;
+const rsvpBase = import.meta.env.PUBLIC_RSVP_BASEURL;
+const rsvpAction = `${rsvpBase}/rsvp/${rsvpSlug}`;
+---
+
+<!-- Status banner — hidden by default, shown by client JS when ?rsvp= is present -->
+<div id="rsvp-status" class="hidden mt-6">
+    <div
+        id="rsvp-success"
+        class="hidden rounded-lg bg-bermuda-500/20 border border-bermuda-400/30 px-4 py-3 text-bermuda-200 text-sm"
+    >
+        <i class="fa-solid fa-sharp fa-party-horn"></i>
+        <strong>You're registered!</strong> Check your email for confirmation.
+    </div>
+    <div
+        id="rsvp-waitlisted"
+        class="hidden rounded-lg bg-lantern-500/20 border border-lantern-400/30 px-4 py-3 text-lantern-200 text-sm"
+    >
+        <i class="fa-solid fa-sharp fa-clipboard-list"></i>
+        <strong>You're on the waitlist.</strong> We'll email you if a spot opens up.
+    </div>
+    <div
+        id="rsvp-duplicate"
+        class="hidden rounded-lg bg-mystic-400/20 border border-mystic-300/30 px-4 py-3 text-mystic-200 text-sm"
+    >
+        <i class="fa-solid fa-sharp fa-circle-check"></i>
+        You're already registered for this event.
+    </div>
+</div>
+
+<form id="rsvp-form" method="POST" action={rsvpAction} class="mt-6">
+    <input type="hidden" name="redirect_to" value={canonicalUrl} />
+
+    <div class="flex flex-col sm:flex-row gap-2 sm:items-end">
+        <div class="flex-1 min-w-0">
+            <label for="rsvp-name" class="sr-only">Name</label>
+            <input
+                type="text"
+                id="rsvp-name"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="Your name"
+                class="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-mystic-300 focus:border-bermuda-400 focus:ring-2 focus:ring-bermuda-400/30 focus:outline-none backdrop-blur-sm transition-colors"
+            />
+        </div>
+
+        <div class="flex-1 min-w-0">
+            <label for="rsvp-email" class="sr-only">Email</label>
+            <input
+                type="email"
+                id="rsvp-email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="Your email"
+                class="w-full rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-sm text-white placeholder-mystic-300 focus:border-bermuda-400 focus:ring-2 focus:ring-bermuda-400/30 focus:outline-none backdrop-blur-sm transition-colors"
+            />
+        </div>
+
+        <!-- Honeypot — hide with CSS, do not remove -->
+        <div style="position:absolute;left:-9999px" aria-hidden="true">
+            <label for="rsvp-phone">Phone</label>
+            <input
+                type="text"
+                id="rsvp-phone"
+                name="phone"
+                tabindex="-1"
+                autocomplete="off"
+            />
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-link gap-2 px-4 py-2 text-sm shrink-0"
+        >
+            <i class="fa-solid fa-sharp fa-paper-plane"></i>
+            RSVP
+        </button>
+    </div>
+
+    <div
+        class="mt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2"
+    >
+        <div class="flex items-center gap-2">
+            <input
+                type="checkbox"
+                id="rsvp-remember"
+                class="h-3.5 w-3.5 rounded border-white/30 bg-white/10 text-bermuda-500 focus:ring-bermuda-400/30"
+            />
+            <label for="rsvp-remember" class="text-xs text-mystic-300">
+                Remember my details
+            </label>
+        </div>
+        <p class="text-xs text-mystic-400">
+            Your info is used for event coordination only.
+        </p>
+    </div>
+</form>
+
+<script>
+    const STORAGE_KEY = "bts-rsvp-remember";
+
+    // --- Status banner ---
+    // Read ?rsvp= from the URL and show the right message.
+    const rsvpParam = new URLSearchParams(window.location.search).get("rsvp");
+    if (rsvpParam) {
+        const banner = document.getElementById(`rsvp-${rsvpParam}`);
+        const wrapper = document.getElementById("rsvp-status");
+        const form = document.getElementById("rsvp-form");
+        if (banner && wrapper) {
+            wrapper.classList.remove("hidden");
+            banner.classList.remove("hidden");
+        }
+        // Hide the form after a successful submission
+        if (form) {
+            form.classList.add("hidden");
+        }
+    }
+
+    // --- Remember me ---
+    const nameInput = document.getElementById(
+        "rsvp-name",
+    ) as HTMLInputElement | null;
+    const emailInput = document.getElementById(
+        "rsvp-email",
+    ) as HTMLInputElement | null;
+    const rememberCheckbox = document.getElementById(
+        "rsvp-remember",
+    ) as HTMLInputElement | null;
+    const form = document.getElementById("rsvp-form") as HTMLFormElement | null;
+
+    // On load: restore saved details from localStorage
+    try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            if (nameInput && parsed.name) nameInput.value = parsed.name;
+            if (emailInput && parsed.email) emailInput.value = parsed.email;
+            if (rememberCheckbox) rememberCheckbox.checked = true;
+        }
+    } catch {
+        // Ignore
+    }
+
+    // On submit: save or clear localStorage based on checkbox state
+    form?.addEventListener("submit", () => {
+        try {
+            const name = nameInput?.value.trim() ?? "";
+            const email = emailInput?.value.trim() ?? "";
+            if (rememberCheckbox?.checked && name && email) {
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify({ name, email }),
+                );
+            } else {
+                localStorage.removeItem(STORAGE_KEY);
+            }
+        } catch {
+            // Storage full or blocked
+        }
+    });
+</script>
