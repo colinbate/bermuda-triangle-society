@@ -190,10 +190,13 @@ const config = statusConfig[status];
 
             {
                 rsvpSlug && !isPast && (
-                    <RsvpForm
-                        rsvpSlug={rsvpSlug}
-                        canonicalUrl={Astro.url.href}
-                    />
+                    <div class="mt-6">
+                        <h5 class="mb-1">Plan on attending? Let us know.</h5>
+                        <RsvpForm
+                            rsvpSlug={rsvpSlug}
+                            canonicalUrl={Astro.url.href}
+                        />
+                    </div>
                 )
             }
 

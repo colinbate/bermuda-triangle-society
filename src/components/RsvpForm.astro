@@ -10,7 +10,7 @@ const rsvpAction = `${rsvpBase}/rsvp/${rsvpSlug}`;
 ---
 
 <!-- Status banner — hidden by default, shown by client JS when ?rsvp= is present -->
-<div id="rsvp-status" class="hidden mt-6">
+<div id="rsvp-status" class="hidden">
     <div
         id="rsvp-success"
         class="hidden rounded-lg bg-bermuda-500/20 border border-bermuda-400/30 px-4 py-3 text-bermuda-200 text-sm"
@@ -34,7 +34,7 @@ const rsvpAction = `${rsvpBase}/rsvp/${rsvpSlug}`;
     </div>
 </div>
 
-<form id="rsvp-form" method="POST" action={rsvpAction} class="mt-6">
+<form id="rsvp-form" method="POST" action={rsvpAction}>
     <input type="hidden" name="redirect_to" value={canonicalUrl} />
 
     <div class="flex flex-col sm:flex-row gap-2 sm:items-end">
