@@ -6,8 +6,8 @@ const joinStatus = Astro.url.searchParams.get("join");
 ---
 
 <Layout
-    title="Join the Discussion Group"
-    description="Join the Bermuda Triangle Society's email discussion group to stay connected between monthly meetings."
+    title="Join The Archive"
+    description="Request access to The Archive, the Bermuda Triangle Society's discussion space for members and readers."
 >
     <!-- Page Header -->
     <section
@@ -29,17 +29,17 @@ const joinStatus = Astro.url.searchParams.get("join");
             <span
                 class="inline-flex items-center gap-2 text-bermuda-400 text-sm font-semibold uppercase tracking-wide mb-4"
             >
-                <i class="fa-solid fa-sharp fa-envelope-open-text"></i>
-                Stay Connected
+                <i class="fa-solid fa-sharp fa-box-archive"></i>
+                The Archive
             </span>
             <h1
                 class="text-4xl md:text-5xl font-display font-bold text-white mb-6"
             >
-                Join the Discussion Group
+                Join The Archive
             </h1>
             <p class="text-xl text-mystic-200 max-w-2xl mx-auto">
-                Keep the conversation going between meetings with fellow science
-                fiction and fantasy readers.
+                Request access to the Bermuda Triangle Society's discussion
+                space for book talk, session threads, and member recommendations.
             </p>
         </div>
     </section>
@@ -55,39 +55,33 @@ const joinStatus = Astro.url.searchParams.get("join");
                     <span class="text-bermuda-500"
                         ><i class="fa-solid fa-sharp fa-comments"></i></span
                     >
-                    What Is This Group?
+                    What Is The Archive?
                 </h2>
                 <div
                     class="space-y-4 text-mystic-700 dark:text-mystic-300 text-lg leading-relaxed"
                 >
                     <p>
-                        The Bermuda Triangle Society discussion group is an
+                        The Archive is the Bermuda Triangle Society's
                         <strong class="text-mystic-900 dark:text-mystic-100"
-                            >email-based community</strong
-                        > powered by
-                        <a
-                            href="https://gaggle.email"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="text-bermuda-600 dark:text-bermuda-400 hover:underline"
-                            >Gaggle Mail</a
-                        >. It's a place for members to share book
-                        recommendations, chat about what they're reading,
-                        discuss upcoming themes, or just connect with fellow
-                        readers between our monthly meetings.
+                            >member discussion space</strong
+                        >. It's a place to share book recommendations, chat
+                        about what you're reading, follow session discussions,
+                        and keep track of the ideas that surface between our
+                        monthly meetings.
                     </p>
                     <p>
-                        Think of it as a friendly, low-volume mailing list. When
-                        someone sends a message, everyone in the group receives
-                        it—and anyone can reply. It's many-to-many conversation,
-                        not a one-way newsletter.
+                        Instead of a mailing list, The Archive gives us a
+                        quieter home for threaded conversations. You can browse
+                        discussions at your own pace, follow the topics you care
+                        about, and receive email updates when there is something
+                        new for you.
                     </p>
                     <p>
                         Joining is completely <strong
                             class="text-mystic-900 dark:text-mystic-100"
                             >optional</strong
-                        >. You're welcome at our meetings whether you're on the
-                        list or not. This is simply an extra way to stay in
+                        >. You're welcome at our meetings whether you're in The
+                        Archive or not. This is simply an extra way to stay in
                         touch if you'd like to.
                     </p>
                 </div>
@@ -105,8 +99,8 @@ const joinStatus = Astro.url.searchParams.get("join");
                 <p
                     class="text-mystic-600 dark:text-mystic-400 mb-8 text-center"
                 >
-                    Enter your name and email to join the group. You'll receive
-                    a confirmation email to verify your address.
+                    Enter your name and email to request Archive access. You'll
+                    receive a sign-in link once your account is ready.
                 </p>
 
                 {
@@ -137,8 +131,8 @@ const joinStatus = Astro.url.searchParams.get("join");
                     ></i>
                     <span>
                         This is <strong>not</strong> the RSVP for our monthly meetings.
-                        This signs you up for the email discussion group only. To
-                        register for a session, visit the
+                        This requests access to The Archive only. To register for
+                        a session, visit the
                         <a
                             href="/sessions"
                             class="text-bermuda-600 dark:text-bermuda-400 hover:underline"
@@ -186,13 +180,13 @@ const joinStatus = Astro.url.searchParams.get("join");
                             <h3
                                 class="font-semibold text-mystic-900 dark:text-mystic-100 mb-1 text-base"
                             >
-                                Meeting Reminders
+                                Session Threads
                             </h3>
                             <p
                                 class="text-sm text-mystic-600 dark:text-mystic-400"
                             >
-                                Occasional heads-up about upcoming sessions and
-                                theme votes.
+                                Follow session threads, theme votes, and the
+                                conversations that continue after we meet.
                             </p>
                         </div>
                     </div>
@@ -210,7 +204,8 @@ const joinStatus = Astro.url.searchParams.get("join");
                                 class="text-sm text-mystic-600 dark:text-mystic-400"
                             >
                                 A friendly space to chat with other members
-                                about all things speculative fiction.
+                                about all things speculative fiction without
+                                everything becoming one long email thread.
                             </p>
                         </div>
                     </div>
@@ -223,13 +218,14 @@ const joinStatus = Astro.url.searchParams.get("join");
                             <h3
                                 class="font-semibold text-mystic-900 dark:text-mystic-100 mb-1 text-base"
                             >
-                                Low Volume
+                                At Your Pace
                             </h3>
                             <p
                                 class="text-sm text-mystic-600 dark:text-mystic-400"
                             >
-                                This isn't a firehose—expect a handful of
-                                messages around meeting time, not a flood.
+                                Email notifications are there when you want them,
+                                but The Archive is built for checking in at your
+                                own pace.
                             </p>
                         </div>
                     </div>
@@ -249,7 +245,7 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <summary
                             class="font-semibold text-mystic-800 dark:text-mystic-200 cursor-pointer flex items-center justify-between"
                         >
-                            Does joining this group register me for the monthly
+                            Does joining The Archive register me for the monthly
                             meeting?
                             <span
                                 class="text-mystic-300 group-open:rotate-180 transition-transform"
@@ -260,15 +256,15 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <p
                             class="mt-3 text-mystic-600 dark:text-mystic-300 text-sm"
                         >
-                            No. This is a separate email discussion group for
-                            chatting between meetings. To RSVP for a specific
-                            session, use the signup link on the
+                            No. The Archive is separate from monthly session
+                            RSVPs. To RSVP for a specific session, use the signup
+                            link on the
                             <a
                                 href="/sessions"
                                 class="text-bermuda-600 dark:text-bermuda-400 hover:underline"
                                 >session page</a
                             >. You're welcome at meetings whether or not you're
-                            on this list.
+                            in The Archive.
                         </p>
                     </details>
 
@@ -276,7 +272,7 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <summary
                             class="font-semibold text-mystic-800 dark:text-mystic-200 cursor-pointer flex items-center justify-between"
                         >
-                            If I send a message, does the whole group see it?
+                            Who can see what I post?
                             <span
                                 class="text-mystic-300 group-open:rotate-180 transition-transform"
                                 ><i class="fa-solid fa-sharp fa-chevron-down"
@@ -286,11 +282,10 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <p
                             class="mt-3 text-mystic-600 dark:text-mystic-300 text-sm"
                         >
-                            Yes. When you reply to a group message or send a new
-                            one to the group address, all members receive it.
-                            That's the idea—it's a shared conversation, not a
-                            private channel. Keep things friendly and on-topic,
-                            and it works great.
+                            Posts in The Archive are visible to other approved
+                            members. It is a shared society space rather than a
+                            private inbox, so keep things friendly, thoughtful,
+                            and in the spirit of the Code of Conduct.
                         </p>
                     </details>
 
@@ -298,7 +293,7 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <summary
                             class="font-semibold text-mystic-800 dark:text-mystic-200 cursor-pointer flex items-center justify-between"
                         >
-                            Can I unsubscribe?
+                            Can I control email notifications?
                             <span
                                 class="text-mystic-300 group-open:rotate-180 transition-transform"
                                 ><i class="fa-solid fa-sharp fa-chevron-down"
@@ -308,9 +303,10 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <p
                             class="mt-3 text-mystic-600 dark:text-mystic-300 text-sm"
                         >
-                            Absolutely. Every message from the group includes an
-                            unsubscribe link at the bottom. You can leave at any
-                            time with one click—no hard feelings.
+                            Yes. The Archive can send email for sign-in links,
+                            replies, followed discussions, and digests, but you
+                            can adjust notification preferences from your account
+                            settings.
                         </p>
                     </details>
 
@@ -328,10 +324,10 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <p
                             class="mt-3 text-mystic-600 dark:text-mystic-300 text-sm"
                         >
-                            Not exactly. A newsletter is one-way—someone writes,
-                            you read. This is a discussion group where anyone
-                            can start or join a conversation. Think of it more
-                            like a group email thread than a mailing list.
+                            No. The Archive is a discussion space. Announcements
+                            may appear there, but the main point is conversation:
+                            members can start threads, reply, and follow the
+                            topics they care about.
                         </p>
                     </details>
 
@@ -360,7 +356,7 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <summary
                             class="font-semibold text-mystic-800 dark:text-mystic-200 cursor-pointer flex items-center justify-between"
                         >
-                            Who runs the group?
+                            Who runs The Archive?
                             <span
                                 class="text-mystic-300 group-open:rotate-180 transition-transform"
                                 ><i class="fa-solid fa-sharp fa-chevron-down"
@@ -370,8 +366,8 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <p
                             class="mt-3 text-mystic-600 dark:text-mystic-300 text-sm"
                         >
-                            The group is managed by Colin Bate, creator of the
-                            Bermuda Triangle Society. Our
+                            The Archive is managed by Colin Bate, creator and
+                            Head Archivist of the Bermuda Triangle Society. Our
                             <a
                                 href="/conduct"
                                 class="text-bermuda-600 dark:text-bermuda-400 hover:underline"
@@ -398,8 +394,8 @@ const joinStatus = Astro.url.searchParams.get("join");
                 <p
                     class="text-mystic-700 dark:text-mystic-200 max-w-md mx-auto mb-4"
                 >
-                    If you'd rather reach out directly without joining the
-                    group, that's perfectly fine too.
+                    If you'd rather reach out directly without joining The
+                    Archive, that's perfectly fine too.
                 </p>
                 <a href="/contact" class="btn btn-outline">
                     Contact Us
