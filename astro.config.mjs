@@ -4,6 +4,8 @@ import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 import svelte from "@astrojs/svelte";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://bermudatrianglesociety.com",
@@ -11,5 +13,5 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  integrations: [mdx(), svelte()],
+  integrations: [mdx(), svelte(), sitemap()],
 });
