@@ -1,12 +1,12 @@
 import { glob } from "astro/loaders";
 import type { Loader } from "astro/loaders";
-import { toDisplaySessionDates } from "../lib/session-dates";
 
 type PublicSession = {
   id: string;
   slug: string;
   title: string;
-  startsAt: string | null;
+  date: string | null;
+  start: string | null;
   status: "draft" | "current" | "past";
   theme: string | null;
   themeTitle: string | null;
@@ -96,7 +96,6 @@ export function sessionsLoader({ url }: Options): Loader {
 
       for (const session of sessions.filter((item) => item.isPublic)) {
         const id = publicRouteId(session);
-        const { date, start } = toDisplaySessionDates(session.startsAt);
         const body = session.body ?? "";
 
         const rawData = {
@@ -104,9 +103,10 @@ export function sessionsLoader({ url }: Options): Loader {
           archiveSlug: session.slug,
           title: session.title,
           status: publicStatus(session.status),
-          date,
-          start,
-          startsAt: session.startsAt,
+          date: session.date ? new Date(`${session.date}Z`) : null,
+          start: session.start
+            ? new Date(`2000-01-01T${session.start}Z`)
+            : null,
           duration: session.durationMinutes,
           locationId: locationIdFor(session.locationName),
           locationName: session.locationName,
