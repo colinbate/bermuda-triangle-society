@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import TagPill from "./TagPill.astro";
 import Time from "./Time.svelte";
+import { formatSessionDate, isPastSession } from "../lib/session-dates";
 
 interface Props {
     session: CollectionEntry<"sessions">;
@@ -28,16 +29,10 @@ const {
 } = session.data;
 
 // Format the date nicely
-const formattedDate = date.toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "utc",
-});
+const formattedDate = formatSessionDate(date);
 
 // Check if session is in the past
-const isPast = date < new Date();
+const isPast = isPastSession(date);
 
 // Status configuration
 const statusConfig = {
@@ -79,19 +74,23 @@ const config = statusConfig[status];
                     </h3>
                     <div class="flex items-center gap-2 text-sm text-mystic-600 dark:text-mystic-400">
                         <i class="fa-solid fa-sharp fa-calendar" />
-                        <time datetime={date.toISOString()} class="font-medium">
+                        <time datetime={date?.toISOString()} class="font-medium">
                             {formattedDate}
                         </time>
                     </div>
 
-                    <div class="flex items-center gap-2 text-mystic-600 dark:text-mystic-400 text-sm">
-                        <i class="fa-solid fa-sharp fa-clock" />
-                        <Time
-                            class="font-medium"
-                            start={start}
-                            duration={duration}
-                        />
-                    </div>
+                    {
+                        start && duration !== null && (
+                            <div class="flex items-center gap-2 text-mystic-600 dark:text-mystic-400 text-sm">
+                                <i class="fa-solid fa-sharp fa-clock" />
+                                <Time
+                                    class="font-medium"
+                                    start={start}
+                                    duration={duration}
+                                />
+                            </div>
+                        )
+                    }
                 </div>
                 {showLink && (
                     <div class="flex items-center gap-2 absolute bottom-4 right-4  text-bermuda-600 dark:text-bermuda-400 group-hover:text-bermuda-800 dark:group-hover:text-bermuda-200 font-medium transition-colors">
@@ -113,13 +112,15 @@ const config = statusConfig[status];
                             {/* Calendar icon/badge */}
                             <div class="w-14 h-14 bg-linear-to-br from-mystic-500 to-mystic-600 rounded-xl flex flex-col items-center justify-center text-white shadow-lg shadow-mystic-500/20">
                                 <span class="text-xs font-medium uppercase tracking-wide">
-                                    {date.toLocaleDateString("en-US", {
-                                        month: "short",
-                                        timeZone: "utc",
-                                    })}
+                                    {date
+                                        ? date.toLocaleDateString("en-US", {
+                                              month: "short",
+                                              timeZone: "utc",
+                                          })
+                                        : "TBA"}
                                 </span>
                                 <span class="text-xl font-bold leading-none">
-                                    {date.getUTCDate()}
+                                    {date ? date.getUTCDate() : ""}
                                 </span>
                             </div>
                             <div>
@@ -127,7 +128,7 @@ const config = statusConfig[status];
                                     {themeTitle}
                                 </h3>
                                 <time
-                                    datetime={date.toISOString()}
+                                    datetime={date?.toISOString()}
                                     class="text-sm text-mystic-600 dark:text-mystic-300"
                                 >
                                     {formattedDate}
@@ -156,7 +157,11 @@ const config = statusConfig[status];
                             <span class="text-mystic-400 dark:text-mystic-500 w-4">
                                 <i class="fa-solid fa-sharp fa-clock" />
                             </span>
-                            <Time start={start} duration={duration} />
+                            {start && duration !== null ? (
+                                <Time start={start} duration={duration} />
+                            ) : (
+                                <span>Time TBA</span>
+                            )}
                         </div>
 
                         {starterList && starterList.length > 0 && (

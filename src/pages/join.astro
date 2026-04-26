@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import GaggleSignup from "../components/GaggleSignup.astro";
+import ArchiveSignup from "../components/ArchiveSignup.astro";
+
+const joinStatus = Astro.url.searchParams.get("join");
 ---
 
 <Layout
@@ -107,7 +109,25 @@ import GaggleSignup from "../components/GaggleSignup.astro";
                     a confirmation email to verify your address.
                 </p>
 
-                <GaggleSignup />
+                {
+                    joinStatus === "invalid" && (
+                        <div class="mb-6 rounded-lg bg-lantern-100 dark:bg-lantern-900/40 border border-lantern-300 dark:border-lantern-700 px-4 py-3 text-lantern-900 dark:text-lantern-200 text-sm">
+                            <i class="fa-solid fa-sharp fa-triangle-exclamation mr-2" />
+                            Please enter a valid email address.
+                        </div>
+                    )
+                }
+
+                {
+                    joinStatus === "closed" && (
+                        <div class="mb-6 rounded-lg bg-mystic-100 dark:bg-mystic-800 border border-mystic-200 dark:border-mystic-700 px-4 py-3 text-mystic-700 dark:text-mystic-200 text-sm">
+                            <i class="fa-solid fa-sharp fa-circle-info mr-2" />
+                            Sign up is currently closed. Please check back soon.
+                        </div>
+                    )
+                }
+
+                <ArchiveSignup />
 
                 <p
                     class="mt-6 text-sm text-mystic-500 dark:text-mystic-400 text-center flex items-start gap-1.5 justify-center max-w-md mx-auto"

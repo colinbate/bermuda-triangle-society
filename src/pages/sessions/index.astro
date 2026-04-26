@@ -15,8 +15,8 @@ const sortedSessions = sessions.sort((a, b) => {
     if (statusDiff !== 0) return statusDiff;
 
     // Then by date
-    const dateA = new Date(a.data.date).getTime();
-    const dateB = new Date(b.data.date).getTime();
+    const dateA = a.data.date?.getTime() ?? Number.POSITIVE_INFINITY;
+    const dateB = b.data.date?.getTime() ?? Number.POSITIVE_INFINITY;
 
     if (a.data.status === "past") {
         return dateB - dateA; // Most recent first for past

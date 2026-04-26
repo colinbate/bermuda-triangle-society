@@ -1,5 +1,10 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { sessionsLoader } from "./loaders/sessions-loader";
+
+const archiveBaseUrl =
+  process.env.PUBLIC_ARCHIVE_BASEURL ||
+  "https://archive.bermudatrianglesociety.com";
 
 const locations = defineCollection({
   loader: glob({ pattern: "**/*.toml", base: "./src/content/locations" }),
@@ -12,14 +17,21 @@ const locations = defineCollection({
 });
 
 const sessions = defineCollection({
-  loader: glob({ pattern: "**/*.mdx", base: "./src/content/sessions" }),
+  loader: sessionsLoader({
+    url: new URL("/api/v1/sessions", archiveBaseUrl).toString(),
+  }),
   schema: z.object({
+    archiveId: z.string().optional(),
+    archiveSlug: z.string().optional(),
     title: z.string(),
     status: z.enum(["current", "upcoming", "past"]),
-    date: z.date(),
-    start: z.date(),
-    duration: z.number(),
+    date: z.date().nullable(),
+    start: z.date().nullable(),
+    startsAt: z.string().nullable().optional(),
+    duration: z.number().nullable(),
     locationId: z.string().optional(),
+    locationName: z.string().nullable().optional(),
+    theme: z.string().nullable().optional(),
     themeTitle: z.string(),
     themeSummary: z.string(),
     signupLink: z.string().optional(),

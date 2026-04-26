@@ -6,15 +6,28 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const sessions = await getCollection("sessions");
-  return sessions.map((session) => ({
-    params: { id: session.id },
-    props: { session },
-  }));
+  return sessions
+    .filter(
+      (session) =>
+        session.data.date &&
+        session.data.start &&
+        session.data.duration !== null,
+    )
+    .map((session) => ({
+      params: { id: session.id },
+      props: { session },
+    }));
 }
 
 export const GET = (({ params, props }) => {
   const id = params.id;
   const session = props.session.data as CollectionEntry<"sessions">["data"];
+  if (!session.date || !session.start || session.duration === null) {
+    return new Response("Calendar file unavailable for this session.", {
+      status: 404,
+    });
+  }
+
   const { error, value } = createEvents([
     {
       title: "Bermuda Triangle Society Meeting",

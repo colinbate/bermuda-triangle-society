@@ -1,27 +1,28 @@
 ---
+import { ARCHIVE_BASE_URL } from "../lib/archive";
 
+const joinAction = new URL("/auth/join", ARCHIVE_BASE_URL).toString();
 ---
 
 <form
     method="post"
-    action="https://gaggle.email/join/bermuda-triangle-society@gaggle.email"
-    class="gaggle-signup flex flex-col sm:flex-row gap-3"
+    action={joinAction}
+    class="archive-signup flex flex-col sm:flex-row gap-3"
 >
     <div class="flex-1">
-        <label for="gaggle-name" class="sr-only">Name</label>
+        <label for="archive-name" class="sr-only">Name</label>
         <input
-            id="gaggle-name"
+            id="archive-name"
             name="name"
             type="text"
             placeholder="Your name"
-            required
             class="w-full px-4 py-3 rounded-lg border border-mystic-200 dark:border-mystic-700 bg-white dark:bg-mystic-900 text-mystic-900 dark:text-mystic-100 placeholder-mystic-400 dark:placeholder-mystic-500 focus:outline-none focus:ring-2 focus:ring-bermuda-500 focus:border-transparent transition-colors"
         />
     </div>
     <div class="flex-1">
-        <label for="gaggle-email" class="sr-only">Email address</label>
+        <label for="archive-email" class="sr-only">Email address</label>
         <input
-            id="gaggle-email"
+            id="archive-email"
             name="email"
             type="email"
             placeholder="Email address"
@@ -29,6 +30,20 @@
             class="w-full px-4 py-3 rounded-lg border border-mystic-200 dark:border-mystic-700 bg-white dark:bg-mystic-900 text-mystic-900 dark:text-mystic-100 placeholder-mystic-400 dark:placeholder-mystic-500 focus:outline-none focus:ring-2 focus:ring-bermuda-500 focus:border-transparent transition-colors"
         />
     </div>
+    <div
+        style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+        aria-hidden="true"
+    >
+        <label for="archive-phone">Phone</label>
+        <input
+            id="archive-phone"
+            name="phone"
+            type="text"
+            autocomplete="off"
+            tabindex="-1"
+        />
+    </div>
+    <input type="hidden" name="browserTimezone" value="" />
     <div>
         <button
             type="submit"
@@ -39,3 +54,17 @@
         </button>
     </div>
 </form>
+
+<script>
+    const tzInput = document.querySelector<HTMLInputElement>(
+        'input[name="browserTimezone"]',
+    );
+    if (tzInput) {
+        try {
+            tzInput.value =
+                Intl.DateTimeFormat().resolvedOptions().timeZone ?? "";
+        } catch {
+            tzInput.value = "";
+        }
+    }
+</script>
