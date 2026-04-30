@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import SessionCard from '../components/SessionCard.astro';
 import StarterList from '../components/StarterList.astro';
+import ArchiveSignup from '../components/ArchiveSignup.astro';
 import Time from '../components/Time.svelte';
 import { getCollection } from 'astro:content';
 
@@ -345,47 +346,27 @@ function formatDate(date: Date): string {
     </section>
   )}
 
-  <!-- Join the Discussion Group Section -->
+  <!-- Join The Archive Section -->
   <section class="py-12 md:py-16 transition-colors duration-300">
     <div class="max-w-3xl mx-auto px-4">
       <div class="card p-8 md:p-10 bg-linear-to-br from-mystic-50 to-bermuda-50 dark:from-mystic-900 dark:to-mystic-950 text-center">
-        <span class="text-3xl text-bermuda-500 mb-3 block"><i class="fa-solid fa-sharp fa-envelope-open-text"></i></span>
+        <span class="text-3xl text-bermuda-500 mb-3 block"><i class="fa-solid fa-sharp fa-box-archive"></i></span>
         <h2 class="text-2xl md:text-3xl font-display font-bold text-mystic-900 dark:text-mystic-100 mb-3">
           Stay in Touch Between Meetings
         </h2>
         <p class="text-mystic-600 dark:text-mystic-400 max-w-xl mx-auto mb-6">
-          Join our email discussion group to swap recommendations, chat about what you're reading, and keep the conversation going between monthly sessions.
+          Join The Archive to swap recommendations, chat about what you're reading, follow session threads, and keep the conversation going between monthly meetings.
         </p>
 
-        <form
-          method="post"
-          action="https://gaggle.email/join/bermuda-triangle-society@gaggle.email"
-          class="flex flex-col sm:flex-row gap-3 mx-auto mb-4"
-        >
-          <input
-            name="name"
-            type="text"
-            placeholder="Name"
-            required
-            class="flex-1 min-w-0 px-4 py-3 rounded-lg border border-mystic-200 dark:border-mystic-700 bg-white dark:bg-mystic-900 text-mystic-900 dark:text-mystic-100 placeholder-mystic-400 dark:placeholder-mystic-500 focus:outline-none focus:ring-2 focus:ring-bermuda-500 focus:border-transparent transition-colors"
-          />
-          <input
-            name="email"
-            type="email"
-            placeholder="Email Address"
-            required
-            class="flex-1 min-w-0 px-4 py-3 rounded-lg border border-mystic-200 dark:border-mystic-700 bg-white dark:bg-mystic-900 text-mystic-900 dark:text-mystic-100 placeholder-mystic-400 dark:placeholder-mystic-500 focus:outline-none focus:ring-2 focus:ring-bermuda-500 focus:border-transparent transition-colors"
-          />
-          <button type="submit" class="btn btn-link shrink-0 whitespace-nowrap">
-            Join Group
-          </button>
-        </form>
+        <div class="mb-4">
+          <ArchiveSignup />
+        </div>
 
         <p class="text-xs text-mystic-500 dark:text-mystic-500 max-w-md mx-auto mb-3">
-          This is an <strong class="text-mystic-600 dark:text-mystic-400">optional email discussion group</strong> for members to stay connected—it's not the monthly event RSVP.
+          This requests access to <strong class="text-mystic-600 dark:text-mystic-400">The Archive</strong> only. It's not the monthly event RSVP. However, members can RSVP directly from within The Archive.
         </p>
         <a href="/join" class="inline-flex items-center gap-1 text-sm text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-700 dark:hover:text-bermuda-300 font-medium transition-colors">
-          Learn more about the group
+          Learn more about The Archive
           <i class="fa-solid fa-sharp fa-arrow-right"></i>
         </a>
       </div>
