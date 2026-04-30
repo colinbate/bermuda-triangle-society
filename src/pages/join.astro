@@ -39,8 +39,8 @@ const joinStatus = Astro.url.searchParams.get("join");
             </h1>
             <p class="text-xl text-mystic-200 max-w-2xl mx-auto">
                 Request access to the Bermuda Triangle Society's discussion
-                space for book talk, session threads, and member
-                recommendations.
+                space for book talk, session threads, member recommendations,
+                and theme ideas.
             </p>
         </div>
     </section>
@@ -67,7 +67,7 @@ const joinStatus = Astro.url.searchParams.get("join");
                             >member discussion space</strong
                         >. It's a place to share book recommendations, chat
                         about what you're reading, follow session discussions,
-                        and keep track of the ideas that surface between our
+                        and help shape the theme ideas that surface between our
                         monthly meetings.
                     </p>
                     <p>
@@ -213,6 +213,25 @@ const joinStatus = Astro.url.searchParams.get("join");
                     </div>
                     <div class="flex gap-3">
                         <span class="text-bermuda-500 text-lg shrink-0"
+                            ><i class="fa-solid fa-sharp fa-check-to-slot"
+                            ></i></span
+                        >
+                        <div>
+                            <h3
+                                class="font-semibold text-mystic-900 dark:text-mystic-100 mb-1 text-base"
+                            >
+                                Theme Pool
+                            </h3>
+                            <p
+                                class="text-sm text-mystic-600 dark:text-mystic-400"
+                            >
+                                Browse the theme database, add ideas, and see
+                                what members are excited to vote on next.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="text-bermuda-500 text-lg shrink-0"
                             ><i class="fa-solid fa-sharp fa-volume-low"
                             ></i></span
                         >
@@ -258,9 +277,9 @@ const joinStatus = Astro.url.searchParams.get("join");
                         <p
                             class="mt-3 text-mystic-600 dark:text-mystic-300 text-sm"
                         >
-                            No. The Archive is separate from monthly session
-                            RSVPs. To RSVP for a specific session, use the
-                            signup link on the
+                            No. But you easily RSVP from within The Archive.
+                            Otherwise, to RSVP for a specific session, use the
+                            signup link on the current
                             <a
                                 href="/sessions"
                                 class="text-bermuda-600 dark:text-bermuda-400 hover:underline"

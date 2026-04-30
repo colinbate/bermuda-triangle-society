@@ -143,10 +143,10 @@ function formatDate(date: Date): string {
             Vote on a Theme
           </h3>
           <p class="text-mystic-600 dark:text-mystic-400">
-            Each month, members vote on a theme like "Lost at Sea" or "Portal Fantasy." Anyone can submit theme ideas!
+            Each month, members vote on a theme like "Lost at Sea" or "Portal Fantasy." The Archive keeps the theme pool organized for members.
           </p>
-          <a href="/submit" class="inline-flex mt-4 items-center gap-2 text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-800 dark:hover:text-bermuda-200 font-medium transition-colors">
-              Suggest a theme
+          <a href="/join" class="inline-flex mt-4 items-center gap-2 text-bermuda-600 dark:text-bermuda-400 hover:text-bermuda-800 dark:hover:text-bermuda-200 font-medium transition-colors">
+              Join The Archive
             <i class="fa-solid fa-sharp fa-arrow-right"></i>
           </a>
         </div>
@@ -373,61 +373,4 @@ function formatDate(date: Date): string {
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="py-16 md:py-24 bg-linear-to-br from-mystic-900 via-mystic-800 to-mystic-900 text-white relative overflow-hidden">
-    <!-- Background decoration -->
-    <div class="absolute inset-0 bg-stars opacity-30" aria-hidden="true"></div>
-    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-mystic-500/10 rounded-full blur-3xl" aria-hidden="true"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-bermuda-500/10 rounded-full blur-3xl" aria-hidden="true"></div>
-
-    <!-- Cthulhu tentacles creeping from edges -->
-    <div class="absolute -bottom-4 -left-4 w-48 h-48 opacity-10 pointer-events-none" aria-hidden="true">
-      <svg viewBox="0 0 100 100" class="w-full h-full text-bermuda-400">
-        <path d="M0 100 Q20 80 25 60 Q30 40 20 25 Q15 15 25 5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-        <path d="M15 100 Q30 85 40 70 Q50 55 45 40 Q42 30 50 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-        <path d="M35 100 Q45 90 55 80 Q65 70 60 55" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="25" cy="5" r="3" fill="currentColor"/>
-        <circle cx="50" cy="20" r="2.5" fill="currentColor"/>
-        <circle cx="60" cy="55" r="2" fill="currentColor"/>
-      </svg>
-    </div>
-
-    <div class="absolute -top-4 -right-4 w-48 h-48 opacity-10 pointer-events-none transform rotate-180" aria-hidden="true">
-      <svg viewBox="0 0 100 100" class="w-full h-full text-mystic-400">
-        <path d="M0 100 Q20 80 25 60 Q30 40 20 25 Q15 15 25 5" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-        <path d="M15 100 Q30 85 40 70 Q50 55 45 40 Q42 30 50 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-        <path d="M35 100 Q45 90 55 80 Q65 70 60 55" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        <circle cx="25" cy="5" r="3" fill="currentColor"/>
-        <circle cx="50" cy="20" r="2.5" fill="currentColor"/>
-      </svg>
-    </div>
-
-    <!-- Mysterious arcane circle -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 opacity-[0.04] pointer-events-none" aria-hidden="true">
-      <svg viewBox="0 0 200 200" class="w-full h-full text-lantern-400">
-        <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="0.5"/>
-        <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="0.3"/>
-        <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width="0.5"/>
-        <!-- Arcane symbols -->
-        <polygon points="100,20 115,70 170,70 125,100 140,150 100,120 60,150 75,100 30,70 85,70" fill="none" stroke="currentColor" stroke-width="0.5"/>
-        <!-- Inner triangle -->
-        <polygon points="100,40 145,130 55,130" fill="none" stroke="currentColor" stroke-width="0.5"/>
-      </svg>
-    </div>
-
-    <div class="relative max-w-3xl mx-auto px-4 text-center">
-      <span class="text-4xl text-lantern-400 mb-4 block"><i class="fa-solid fa-sharp fa-lightbulb"></i></span>
-      <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4">
-        Got a Theme Idea?
-      </h2>
-      <p class="text-lg text-mystic-200 mb-8 max-w-xl mx-auto">
-        "Time Loops & Reset Stories"? "Cozy Apocalypse"? "Unreliable Narrators"?
-        We're always looking for fresh theme ideas from readers like you.
-      </p>
-      <a href="/submit" class="btn btn-secondary">
-        <span>Submit a Theme</span>
-        <i class="fa-solid fa-sharp fa-arrow-right ml-2"></i>
-      </a>
-    </div>
-  </section>
 </Layout>
